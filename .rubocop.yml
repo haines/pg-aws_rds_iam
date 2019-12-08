@@ -1,0 +1,24 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - bin/bundle
+    - bin/rake
+
+Metrics/LineLength:
+  Enabled: false
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: false
+
+Style/HashSyntax:
+  Exclude:
+    - Rakefile
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/WordArray:
+  EnforcedStyle: brackets
