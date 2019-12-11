@@ -7,7 +7,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'pg-aws_rds_iam'
+gem "pg-aws_rds_iam"
 ```
 
 And then execute:
@@ -24,7 +24,26 @@ $ gem install pg-aws_rds_iam
 
 ## Usage
 
-TODO: Write usage instructions here
+`PG::AWS_RDS_IAM` adds one new connection parameter to `PG`, `aws_rds_iam_auth_token_generator`.
+As with other parameters, this can be passed to `PG` as
+
+* a query string parameter in a connection URI,
+* a `key=value` pair in a connection string, or
+* a `key: value` pair in a connection hash.
+
+Setting `aws_rds_iam_auth_token_generator` to `default` selects an authentication token generator that uses the AWS SDK to search for [credentials](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-credentials) and [region](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-region).
+
+If you need to explicitly specify the credentials or region, or otherwise customize the authentication token generator, you can register an alternative with
+
+```ruby
+PG::AWS_IAM_RDS.auth_token_generators.add :custom do
+  PG::AWS_IAM_RDS::AuthTokenGenerator.new(credentials: ..., region: ...)
+end
+```
+
+and then use it by setting the `aws_rds_iam_auth_token_generator` connection parameter to the registered name (`custom`, in this example).
+
+The registered authentication token generator can be an instance of `PG::AWS_IAM_RDS::AuthTokenGenerator`, or any object that responds to `call(host:, port:, user:)` and returns a token.
 
 ## Development
 

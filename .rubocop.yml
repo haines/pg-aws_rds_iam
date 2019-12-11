@@ -3,12 +3,27 @@ AllCops:
   Exclude:
     - bin/bundle
     - bin/rake
+    - bin/yard
 
-Metrics/LineLength:
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
   Enabled: false
 
 Naming/ClassAndModuleCamelCase:
   Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - lib/pg/aws_rds_iam/auth_token_injector.rb
+    - lib/pg/aws_rds_iam/connection_info.rb
+    - lib/pg/aws_rds_iam/connection_info/**/*.rb
+    - lib/pg/aws_rds_iam/connection.rb
+    - test/**/*.rb
 
 Style/HashSyntax:
   Exclude:
