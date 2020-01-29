@@ -1,0 +1,65 @@
+name: pull-request
+
+on:
+  - pull_request
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        ruby:
+          - 2.5
+          - 2.6
+          - 2.7
+
+        gemfile:
+          - pg-0.18
+          - pg-0.19
+          - pg-0.20
+          - pg-0.21
+          - pg-1.0
+          - pg-1.1
+          - pg-1.2
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: ruby:${{ matrix.ruby }}-alpine
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}/Gemfile
+      BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
+
+    steps:
+      - name: Install dependencies
+        run: apk add build-base git postgresql-dev
+
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Compute cache key
+        id: cache-key
+        run: |
+          source /etc/os-release
+          postgresql_version=$(apk info --installed postgresql-dev --verbose)
+          printf \
+            "::set-output name=cache-key::alpine-%s-ruby-%s-%s\n" \
+            "${VERSION_ID}" \
+            "${RUBY_VERSION}" \
+            "${postgresql_version}"
+
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles(format('gemfiles/{0}/Gemfile.lock', matrix.gemfile)) }}
+          path: vendor/bundle
+
+      - name: Install gems
+        run: bin/setup
+        env:
+          BUNDLE_FROZEN: true
+          BUNDLE_JOBS: 4
+          BUNDLE_RETRY: 3
+
+      - name: Test
+        run: bin/rake

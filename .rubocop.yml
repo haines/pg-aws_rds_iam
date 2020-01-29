@@ -1,0 +1,40 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - bin/bundle
+    - bin/rake
+    - bin/yard
+    - vendor/**/*
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: false
+
+Style/Documentation:
+  Exclude:
+    - lib/pg/aws_rds_iam/auth_token_injector.rb
+    - lib/pg/aws_rds_iam/connection_info.rb
+    - lib/pg/aws_rds_iam/connection_info/**/*.rb
+    - lib/pg/aws_rds_iam/connection.rb
+    - test/**/*.rb
+
+Style/HashSyntax:
+  Exclude:
+    - Rakefile
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/WordArray:
+  EnforcedStyle: brackets
