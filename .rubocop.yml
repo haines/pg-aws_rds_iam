@@ -4,6 +4,7 @@ AllCops:
     - bin/bundle
     - bin/rake
     - bin/yard
+    - vendor/**/*
 
 Layout/LineLength:
   Enabled: false
