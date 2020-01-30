@@ -5,22 +5,45 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "yard"
 
-Rake::TestTask.new :test do |t|
-  t.libs << "test"
-  t.test_files = FileList["test/**/*_test.rb"]
+namespace :test do
+  Rake::TestTask.new :acceptance do |t|
+    t.description = "Run acceptance tests"
+    t.libs << "test"
+    t.test_files = ["test/acceptance/test.rb"]
+  end
+
+  Rake::TestTask.new :unit do |t|
+    t.description = "Run unit tests"
+    t.libs << "test"
+    t.test_files = FileList["test/**/*_test.rb"]
+  end
 end
+
+desc "Run all tests"
+task :test => ["test:unit", "test:acceptance"]
 
 RuboCop::RakeTask.new do |t|
   t.formatters = ["fuubar"]
 end
 
+desc "Generate documentation"
 YARD::Rake::YardocTask.new
 
 namespace :yard do
-  desc "Run YARD documentation server"
+  desc "Run documentation server"
   task :server do
     exec "bin/yard", "server", "--reload"
   end
 end
 
-task :default => [:test, :rubocop]
+namespace :bundles do
+  desc "Update all bundles"
+  task :update do
+    sh "bundle", "update"
+    Dir.glob "gemfiles/*/Gemfile" do |gemfile|
+      sh({ "BUNDLE_GEMFILE" => gemfile }, "bundle", "update")
+    end
+  end
+end
+
+task :default => ["test:unit", :rubocop]
