@@ -7,13 +7,17 @@ require "uri"
 module PG
   class ConnectionTest < Minitest::Test
     def setup
-      PG::AWS_RDS_IAM.auth_token_generators.add :example_auth_token_generator do
+      AWS_RDS_IAM.auth_token_generators.add :example_auth_token_generator do
         ->(host:, port:, user:) { "token(#{user}@#{host}:#{port})" }
       end
     end
 
     def teardown
-      PG::AWS_RDS_IAM.auth_token_generators.remove :example_auth_token_generator
+      AWS_RDS_IAM.auth_token_generators.remove :example_auth_token_generator
+    end
+
+    def test_conndefaults_hash
+      assert_nil Connection.conndefaults_hash.fetch(:aws_rds_iam_auth_token_generator)
     end
 
     def test_parse_connect_args_to_uri
@@ -22,7 +26,7 @@ module PG
         ["postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&aws_rds_iam_auth_token_generator=example_auth_token_generator"] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)",
         ["postgresql://", user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator"] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)"
       }.each do |args, expected|
-        assert_uri_match expected, PG::Connection.parse_connect_args(*args)
+        assert_uri_match expected, Connection.parse_connect_args(*args)
       end
     end
 
@@ -34,7 +38,7 @@ module PG
         [user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator"],
         ["localhost", 5432, nil, nil, "example_database", "example_user", nil, aws_rds_iam_auth_token_generator: "example_auth_token_generator"]
       ].each do |args|
-        assert_keyword_value_string_match expected, PG::Connection.parse_connect_args(*args)
+        assert_keyword_value_string_match expected, Connection.parse_connect_args(*args)
       end
     end
 

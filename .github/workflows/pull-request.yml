@@ -8,18 +8,24 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - 2.5
-          - 2.6
-          - 2.7
+          - "2.5"
+          - "2.6"
+          - "2.7"
 
-        gemfile:
-          - pg-0.18
-          - pg-0.19
-          - pg-0.20
-          - pg-0.21
-          - pg-1.0
-          - pg-1.1
-          - pg-1.2
+        pg:
+          - "0.18"
+          - "0.19"
+          - "0.20"
+          - "0.21"
+          - "1.0"
+          - "1.1"
+          - "1.2"
+
+        activerecord:
+          - "5.2"
+          - "6.0"
+
+    name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | ActiveRecord ${{ matrix.activerecord }}
 
     runs-on: ubuntu-latest
 
@@ -27,8 +33,9 @@ jobs:
       image: ruby:${{ matrix.ruby }}-alpine
 
     env:
-      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}/Gemfile
       BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
+      ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
+      PG_VERSION: ${{ matrix.pg }}
 
     steps:
       - name: Install dependencies
@@ -36,6 +43,12 @@ jobs:
 
       - name: Check out source code
         uses: actions/checkout@v2
+
+      - name: Install Bundler
+        run: bin/install-bundler
+
+      - name: Update Gemfile.lock
+        run: bin/bundle lock --update activerecord pg
 
       - name: Compute cache key
         id: cache-key
@@ -51,11 +64,11 @@ jobs:
       - name: Cache gems
         uses: actions/cache@v1
         with:
-          key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles(format('gemfiles/{0}/Gemfile.lock', matrix.gemfile)) }}
+          key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles('Gemfile.lock') }}
           path: vendor/bundle
 
       - name: Install gems
-        run: bin/setup
+        run: bin/bundle install
         env:
           BUNDLE_FROZEN: true
           BUNDLE_JOBS: 4

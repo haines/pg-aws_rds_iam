@@ -2,14 +2,13 @@
 
 require "test_helper"
 
+require "active_record"
 require "aws-sdk-ec2"
 require "json"
 require "open-uri"
 
 class AcceptanceTest < Minitest::Test
   def setup
-    @uri = ENV.fetch("DATABASE_URL") { terraform_output("database_url") }
-
     configure_aws_credentials
     authorize_ingress
   end
@@ -18,20 +17,38 @@ class AcceptanceTest < Minitest::Test
     revoke_ingress
   end
 
-  def test_connect_to_database_with_iam_auth_token
-    connection = PG.connect(
-      @uri,
-      aws_rds_iam_auth_token_generator: "default",
-      sslmode: "verify-full",
-      sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
-    )
+  def test_pg_connect
+    connection = PG.connect(uri)
 
     connection.exec "SELECT TRUE AS success" do |result|
       assert result[0]["success"]
     end
   end
 
+  def test_active_record_base_establish_connection
+    ActiveRecord::Base.establish_connection uri
+    result = ActiveRecord::Base.connection.exec_query("SELECT TRUE AS success")
+
+    assert result.first["success"]
+  end
+
   private
+
+  def uri
+    "#{base_uri}?#{uri_query}"
+  end
+
+  def base_uri
+    @base_uri ||= ENV.fetch("DATABASE_URL") { terraform_output("database_url") }
+  end
+
+  def uri_query
+    @uri_query ||= URI.encode_www_form(
+      aws_rds_iam_auth_token_generator: "default",
+      sslmode: "verify-full",
+      sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
+    )
+  end
 
   def terraform_output(name)
     @terraform_outputs ||= Dir.chdir(File.expand_path("infrastructure", __dir__)) { JSON.parse(`terraform output --json`) }
