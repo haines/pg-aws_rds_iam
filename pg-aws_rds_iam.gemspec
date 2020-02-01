@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "aws-sdk-rds", "~> 1.0"
   spec.add_dependency "pg", ">= 0.18", "< 2.0"
 
+  spec.add_development_dependency "aws-sdk-ec2", "~> 1.137"
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "minitest", "~> 5.14"
   spec.add_development_dependency "minitest-reporters", "~> 1.4"

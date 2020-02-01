@@ -61,5 +61,17 @@ jobs:
           BUNDLE_JOBS: 4
           BUNDLE_RETRY: 3
 
-      - name: Test
-        run: bin/rake
+      - name: Run RuboCop
+        run: bin/rake rubocop
+
+      - name: Run unit tests
+        run: bin/rake test:unit
+
+      - name: Run acceptance tests
+        run: bin/rake test:acceptance
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
