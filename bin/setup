@@ -2,6 +2,5 @@
 set -o errexit
 set -o nounset
 
-bundler_version=$(ruby -e 'puts /\n\nBUNDLED WITH\n\s{2,}(?<version>#{Gem::Version::VERSION_PATTERN})\n/.match(File.read("Gemfile.lock"))[:version]')
-gem install bundler --version "${bundler_version}"
+bin/install-bundler
 bin/bundle install

@@ -36,14 +36,4 @@ namespace :yard do
   end
 end
 
-namespace :bundles do
-  desc "Update all bundles"
-  task :update do
-    sh "bundle", "update"
-    Dir.glob "gemfiles/*/Gemfile" do |gemfile|
-      sh({ "BUNDLE_GEMFILE" => gemfile }, "bundle", "update")
-    end
-  end
-end
-
 task :default => ["test:unit", :rubocop]
