@@ -2,38 +2,100 @@
 
 `PG::AWS_RDS_IAM` is a plugin for the [`pg` gem](https://rubygems.org/gems/pg) that adds support for [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) when connecting to PostgreSQL databases hosted in Amazon RDS.
 
+IAM authentication allows your application to connect to the database using secure, short-lived authentication tokens instead of a fixed password.
+This gives you greater security and eliminates the operational overhead of rotating passwords.
+
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem "pg-aws_rds_iam"
-```
-
-And then execute:
-
-```console
-$ bundle
-```
-
-Or install it yourself as:
+Install manually:
 
 ```console
 $ gem install pg-aws_rds_iam
 ```
 
+or with Bundler:
+
+```console
+$ bundle add pg-aws_rds_iam
+```
+
 ## Usage
 
-`PG::AWS_RDS_IAM` adds one new connection parameter to `PG`, `aws_rds_iam_auth_token_generator`.
-As with other parameters, this can be passed to `PG` as
+To use IAM authentication for your database connections, you need to
 
-* a query string parameter in a connection URI,
-* a `key=value` pair in a connection string, or
-* a `key: value` pair in a connection hash.
+1. enable IAM authentication for your database,
+2. provide your application with IAM credentials, and
+3. configure your application to generate authentication tokens.
 
-Setting `aws_rds_iam_auth_token_generator` to `default` selects an authentication token generator that uses the AWS SDK to search for [credentials](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-credentials) and [region](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-region).
+### 1. Enable IAM authentication for your database
 
-If you need to explicitly specify the credentials or region, or otherwise customize the authentication token generator, you can register an alternative with
+Start by configuring your database to allow IAM authentication using either the [AWS console](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Enabling.html#UsingWithRDS.IAMDBAuth.Enabling.Console) or the [`aws` CLI](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Enabling.html#UsingWithRDS.IAMDBAuth.Enabling.CLI).
+This doesn't require downtime so is safe to apply immediately, unless you already have pending modifications that require a database reboot.
+
+Next, [grant your database user the `rds_iam` role](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.DBAccounts.html#UsingWithRDS.IAMDBAuth.DBAccounts.PostgreSQL).
+
+### 2. Provide your application with IAM credentials
+
+The most secure way to grant your application permission to connect to your database is to use an IAM role.
+
+Start by [creating a service role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html) if your application doesn't already have one.
+Then, create an [IAM policy granting the `rds-db:connect` permission](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.IAMPolicy.html) and attach it to the role.
+
+If you've created a new service role, you'll need to associate it with your application.
+The way to do this depends on where you are running your application:
+
+* for EC2 instances, [set up an instance profile](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html);
+* for EKS pods, [associate the IAM role with a Kubernetes service account](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html);
+* for ECS tasks, [configure a task role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html); or
+* for Lambda functions, [set the execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html).
+
+If you can't use a service role, then you can grant the permissions to an IAM user instead and supply the application with their access key through a [configuration profile](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) or via the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+However, you won't get the full security and operational benefits of RDS IAM authentication, because the access key is a long-lived secret that you need to supply to the application securely and rotate periodically.
+
+### 3. Configure your application to generate authentication tokens
+
+You can use `PG::AWS_RDS_IAM`'s default authentication token generator if you are using a service role as described above, or if you configure your application using the standard AWS ways to provide [credentials](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-credentials) and [region](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/setup-config.html#aws-ruby-sdk-setting-region).
+
+To use the default authentication token generator, set the `aws_rds_iam_auth_token_generator` connection parameter to `default`.
+You can set this parameter in
+
+* the query string of a connection URI:
+
+  ```
+  postgresql://andrew@postgresql.example.com:5432/blog?aws_rds_iam_auth_token_generator=default
+  ```
+
+* a `key=value` pair in a connection string:
+
+  ```
+  user=andrew host=postgresql.example.com port=5432 dbname=blog aws_rds_iam_auth_token_generator=default
+  ```
+
+* a `key: value` pair in a connection hash:
+
+  ```ruby
+  PG.connect(
+    user: "andrew",
+    host: "postgresql.example.com",
+    port: 5432,
+    dbname: "blog",
+    aws_rds_iam_auth_token_generator: "default"
+  )
+  ```
+
+* `database.yml`, if you're using Rails:
+
+  ```yaml
+  production:
+    adapter: postgresql
+    username: andrew
+    host: postgresql.example.com
+    port: 5432
+    database: blog
+    aws_rds_iam_auth_token_generator: default
+  ```
+
+If the default authentication token generator doesn't meet your needs, you can register an alternative with
 
 ```ruby
 PG::AWS_IAM_RDS.auth_token_generators.add :custom do
@@ -41,14 +103,15 @@ PG::AWS_IAM_RDS.auth_token_generators.add :custom do
 end
 ```
 
-and then use it by setting the `aws_rds_iam_auth_token_generator` connection parameter to the registered name (`custom`, in this example).
+To use this alternative authentication token generator, set the `aws_rds_iam_auth_token_generator` connection parameter to the name you registered it with (`custom`, in this example).
 
-The registered authentication token generator can be an instance of `PG::AWS_IAM_RDS::AuthTokenGenerator`, or any object that responds to `call(host:, port:, user:)` and returns a token.
+The block you give to `add` must construct and return the authentication token generator, which can either be an instance of `PG::AWS_IAM_RDS::AuthTokenGenerator` or another object that returns a string token in response to `call(host:, port:, user:)`.
+The block will be called once, when the first token is generated, and the returned authentication token generator will be re-used to generate all future tokens.
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
-Then, run `bin/rake test` to run the tests.
+Then, run `bin/rake` to run the tests.
 You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bin/rake install`.
@@ -56,7 +119,7 @@ To release a new version, update the version number in `version.rb`, and then ru
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/haines/pg-aws_rds_iam.
+Bug reports and pull requests are welcome [on GitHub](https://github.com/haines/pg-aws_rds_iam).
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/haines/pg-aws_rds_iam/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
