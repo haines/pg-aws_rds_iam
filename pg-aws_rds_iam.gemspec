@@ -15,9 +15,11 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/haines/pg-aws_rds_iam"
   spec.license = "MIT"
 
+  spec.metadata["bug_tracker_uri"] = "#{spec.homepage}/issues"
+  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/master/CHANGELOG.md"
+  spec.metadata["documentation_uri"] = "https://rubydoc.info/gems/pg-aws_rds_iam/#{PG::AWS_RDS_IAM::VERSION}"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
-  spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/master/CHANGELOG.md"
 
   spec.files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0").reject { |path| path.start_with?("test/") } }
 

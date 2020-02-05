@@ -1,5 +1,9 @@
 # PG::AWS_RDS_IAM
 
+[![Gem](https://img.shields.io/gem/v/pg-aws_rds_iam?style=flat-square)](https://rubygems.org/gems/pg-aws_rds_iam)
+&ensp;
+[![Docs](https://img.shields.io/badge/yard-docs-blue?style=flat-square)](https://rubydoc.info/gems/pg-aws_rds_iam)
+
 `PG::AWS_RDS_IAM` is a plugin for the [`pg` gem](https://rubygems.org/gems/pg) that adds support for [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) when connecting to PostgreSQL databases hosted in Amazon RDS.
 
 IAM authentication allows your application to connect to the database using secure, short-lived authentication tokens instead of a fixed password.
