@@ -26,6 +26,15 @@ Style/Documentation:
     - lib/pg/aws_rds_iam/connection.rb
     - test/**/*.rb
 
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
 Style/HashSyntax:
   Exclude:
     - Rakefile
