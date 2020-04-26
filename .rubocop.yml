@@ -9,6 +9,9 @@ AllCops:
 Layout/LineLength:
   Enabled: false
 
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Lint/RaiseException:
   Enabled: true
 
@@ -31,6 +34,9 @@ Style/Documentation:
     - lib/pg/aws_rds_iam/connection_info/**/*.rb
     - lib/pg/aws_rds_iam/connection.rb
     - test/**/*.rb
+
+Style/ExponentialNotation:
+  Enabled: true
 
 Style/HashEachMethods:
   Enabled: true
