@@ -93,7 +93,7 @@ class AcceptanceTest < Minitest::Test
     attempts = 0
 
     begin
-      @current_ip ||= URI.parse("https://ifconfig.co/ip").read.chomp
+      @current_ip ||= URI.parse("https://checkip.amazonaws.com").read.chomp
     rescue OpenURI::HTTPError
       attempts += 1
       raise if attempts > 10
