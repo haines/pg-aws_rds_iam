@@ -3,7 +3,16 @@
 source "https://rubygems.org"
 gemspec
 
+gem "aws-sdk-ec2"
+gem "bundler"
+gem "minitest"
+gem "minitest-reporters"
+gem "pry"
+gem "rake"
+gem "rubocop"
+gem "timecop"
+gem "yard"
+
 ["activerecord", "pg"].each do |gem_name|
-  gem_version = ENV["#{gem_name.upcase}_VERSION"]
-  gem gem_name, "~> #{gem_version}.0" if gem_version
+  gem gem_name, *ENV["#{gem_name.upcase}_VERSION"]&.yield_self { |gem_version| "~> #{gem_version}.0" }
 end
