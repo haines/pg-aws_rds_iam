@@ -24,7 +24,7 @@ module PG
       {
         ["postgresql://example_user@localhost:5432/example_database?aws_rds_iam_auth_token_generator=example_auth_token_generator"] => "postgresql://example_user@localhost:5432/example_database?password=token(example_user@localhost:5432)",
         ["postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&aws_rds_iam_auth_token_generator=example_auth_token_generator"] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)",
-        ["postgresql://", user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator"] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)"
+        ["postgresql://", { user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator" }] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)"
       }.each do |args, expected|
         assert_uri_match expected, Connection.parse_connect_args(*args)
       end
@@ -35,8 +35,8 @@ module PG
 
       [
         ["user=example_user host=localhost port=5432 dbname=example_database aws_rds_iam_auth_token_generator=example_auth_token_generator"],
-        [user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator"],
-        ["localhost", 5432, nil, nil, "example_database", "example_user", nil, aws_rds_iam_auth_token_generator: "example_auth_token_generator"]
+        [{ user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator" }],
+        ["localhost", 5432, nil, nil, "example_database", "example_user", nil, { aws_rds_iam_auth_token_generator: "example_auth_token_generator" }]
       ].each do |args|
         assert_keyword_value_string_match expected, Connection.parse_connect_args(*args)
       end
