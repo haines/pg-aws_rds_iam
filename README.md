@@ -124,7 +124,7 @@ To release a new version, update the version number in `version.rb`, and then ru
 ## Contributing
 
 Bug reports and pull requests are welcome [on GitHub](https://github.com/haines/pg-aws_rds_iam).
-This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/haines/pg-aws_rds_iam/blob/master/CODE_OF_CONDUCT.md).
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/haines/pg-aws_rds_iam/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
