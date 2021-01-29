@@ -1,4 +1,4 @@
-name: pull-request
+name: Pull request
 
 on:
   - pull_request
@@ -63,7 +63,7 @@ jobs:
             "${postgresql_version}"
 
       - name: Cache gems
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles('Gemfile.lock') }}
           path: vendor/bundle
