@@ -11,6 +11,7 @@ gem "pry"
 gem "rake"
 gem "rubocop"
 gem "rubocop-minitest"
+gem "rubocop-rake"
 gem "timecop"
 gem "yard"
 
