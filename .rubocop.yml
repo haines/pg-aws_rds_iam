@@ -1,5 +1,9 @@
+require:
+  - rubocop-minitest
+  - rubocop-rake
+
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   NewCops: enable
   Exclude:
     - bin/bundle
@@ -14,6 +18,9 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Minitest/MultipleAssertions:
   Enabled: false
 
 Naming/ClassAndModuleCamelCase:

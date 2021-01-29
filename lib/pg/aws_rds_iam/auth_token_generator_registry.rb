@@ -56,9 +56,9 @@ module PG
         end
 
         def call
-          return @auth_token_generator if defined?(@auth_token_generator)
+          return @call if defined?(@call)
 
-          @auth_token_generator = @block.call
+          @call = @block.call
         end
       end
 
