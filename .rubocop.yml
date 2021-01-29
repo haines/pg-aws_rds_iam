@@ -1,3 +1,6 @@
+require:
+  - rubocop-minitest
+
 AllCops:
   TargetRubyVersion: 2.5
   NewCops: enable
@@ -14,6 +17,9 @@ Metrics/AbcSize:
   Enabled: false
 
 Metrics/MethodLength:
+  Enabled: false
+
+Minitest/MultipleAssertions:
   Enabled: false
 
 Naming/ClassAndModuleCamelCase:

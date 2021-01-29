@@ -10,6 +10,7 @@ gem "minitest-reporters"
 gem "pry"
 gem "rake"
 gem "rubocop"
+gem "rubocop-minitest"
 gem "timecop"
 gem "yard"
 
