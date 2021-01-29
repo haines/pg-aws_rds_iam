@@ -4,27 +4,27 @@ on:
   - pull_request
 
 jobs:
+  version-matrix:
+    name: Generate version matrix
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.version-matrix.outputs.matrix }}
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Generate version matrix
+        id: version-matrix
+        run: bin/version-matrix
+
   test:
+    needs: version-matrix
+
     strategy:
-      matrix:
-        ruby:
-          - "2.5"
-          - "2.6"
-          - "2.7"
-          - "3.0"
-
-        pg:
-          - "0.18"
-          - "0.19"
-          - "0.20"
-          - "0.21"
-          - "1.0"
-          - "1.1"
-          - "1.2"
-
-        activerecord:
-          - "5.2"
-          - "6.0"
+      matrix: ${{ fromJSON(needs.version-matrix.outputs.matrix) }}
 
     name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | ActiveRecord ${{ matrix.activerecord }}
 

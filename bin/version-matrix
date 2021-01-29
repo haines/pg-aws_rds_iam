@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "json"
+
+def minor_versions(name, requirement)
+  tuples, _errors = Gem::SpecFetcher.fetcher.search_for_dependency(Gem::Dependency.new(name, requirement))
+  tuples.map { |tuple, _source| tuple.version.segments.first(2).join(".") }.uniq
+end
+
+ruby_activerecord_requirements = {
+  "2.5" => ">= 5.2",
+  "2.6" => ">= 5.2",
+  "2.7" => ">= 5.2",
+  "3.0" => ">= 6.0"
+}
+
+activerecord_pg_requirements = {
+  "5.2" => [">= 0.18", "< 2.0"],
+  "6.0" => [">= 0.18", "< 2.0"],
+  "6.1" => "~> 1.1"
+}
+
+versions = ruby_activerecord_requirements.flat_map do |ruby_version, activerecord_requirement|
+  minor_versions("activerecord", activerecord_requirement).flat_map do |activerecord_version|
+    minor_versions("pg", activerecord_pg_requirements.fetch(activerecord_version)).map do |pg_version|
+      {
+        ruby: ruby_version,
+        activerecord: activerecord_version,
+        pg: pg_version
+      }
+    end
+  end
+end
+
+matrix = { include: versions }
+
+puts "::set-output name=matrix::#{matrix.to_json}"
