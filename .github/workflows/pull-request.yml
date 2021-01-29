@@ -4,6 +4,29 @@ on:
   - pull_request
 
 jobs:
+  check-gemfile-lock:
+    name: Check Gemfile.lock
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: ruby:alpine
+
+    steps:
+      - name: Install dependencies
+        run: apk add git
+
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Install Bundler
+        run: bin/install-bundler
+
+      - name: Check Gemfile.lock
+        run: bin/bundle lock
+        env:
+          BUNDLE_FROZEN: true
+
   version-matrix:
     name: Generate version matrix
 
