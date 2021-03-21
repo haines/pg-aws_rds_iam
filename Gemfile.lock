@@ -76,7 +76,7 @@ GEM
     rubocop-rake (0.5.1)
       rubocop
     ruby-progressbar (1.11.0)
-    timecop (0.9.2)
+    timecop (0.9.4)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
