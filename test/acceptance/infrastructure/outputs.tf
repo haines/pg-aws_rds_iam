@@ -5,7 +5,7 @@ output "access_key_id" {
 
 output "database_url" {
   description = "Connection URI for the test database instance"
-  value       = "postgresql://${local.username}@${aws_db_instance.pg_aws_rds_iam_test.endpoint}/${aws_db_instance.pg_aws_rds_iam_test.name}"
+  value       = local.database_url
 }
 
 output "region" {

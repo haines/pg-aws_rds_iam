@@ -7,6 +7,11 @@ terraform {
       version = "~> 3.33"
     }
 
+    github = {
+      source  = "integrations/github"
+      version = "~> 4.5"
+    }
+
     http = {
       source  = "hashicorp/http"
       version = "~> 2.1"
@@ -17,4 +22,8 @@ terraform {
       version = "~> 3.1"
     }
   }
+}
+
+provider "github" {
+  owner = var.github_username
 }

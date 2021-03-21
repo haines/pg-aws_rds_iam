@@ -1,5 +1,6 @@
 locals {
-  username = "test_user"
+  username     = "test_user"
+  database_url = "postgresql://${local.username}@${aws_db_instance.pg_aws_rds_iam_test.endpoint}/${aws_db_instance.pg_aws_rds_iam_test.name}"
 }
 
 resource "aws_db_instance" "pg_aws_rds_iam_test" {
