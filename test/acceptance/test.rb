@@ -21,7 +21,7 @@ class AcceptanceTest < Minitest::Test
     connection = PG.connect(uri)
 
     connection.exec "SELECT TRUE AS success" do |result|
-      assert result[0]["success"]
+      assert result.first["success"]
     end
   end
 
