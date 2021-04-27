@@ -115,3 +115,15 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
+
+  test-results:
+    if: always()
+
+    needs:
+      - test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check test results
+        run: test "${{ needs.test.result }}" = "success"
