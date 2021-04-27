@@ -36,6 +36,9 @@ jobs:
       matrix: ${{ steps.version-matrix.outputs.matrix }}
 
     steps:
+      - name: Check if secrets are available
+        run: test -n "${{ secrets.AVAILABLE }}"
+
       - name: Check out source code
         uses: actions/checkout@v2
 
