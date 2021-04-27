@@ -9,7 +9,6 @@ def minor_versions(name, requirement)
 end
 
 ruby_activerecord_requirements = {
-  "2.5" => ">= 5.2",
   "2.6" => ">= 5.2",
   "2.7" => ">= 5.2",
   "3.0" => ">= 6.0"

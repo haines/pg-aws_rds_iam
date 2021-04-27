@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.5"
+  spec.required_ruby_version = ">= 2.6"
 
   spec.add_dependency "aws-sdk-rds", "~> 1.0"
   spec.add_dependency "pg", ">= 0.18", "< 2.0"

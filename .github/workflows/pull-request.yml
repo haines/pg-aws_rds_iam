@@ -36,6 +36,9 @@ jobs:
       matrix: ${{ steps.version-matrix.outputs.matrix }}
 
     steps:
+      - name: Check if secrets are available
+        run: test -n "${{ secrets.AVAILABLE }}"
+
       - name: Check out source code
         uses: actions/checkout@v2
 
@@ -112,3 +115,15 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
+
+  test-results:
+    if: always()
+
+    needs:
+      - test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check test results
+        run: test "${{ needs.test.result }}" = "success"
