@@ -50,7 +50,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     parallel (1.20.1)
-    parser (3.0.1.1)
+    parser (3.0.2.0)
       ast (~> 2.4.1)
     pg (1.2.3)
     pry (0.14.1)
@@ -60,7 +60,7 @@ GEM
     rake (13.0.6)
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rubocop (1.18.2)
+    rubocop (1.18.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
