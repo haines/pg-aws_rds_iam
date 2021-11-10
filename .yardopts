@@ -1,4 +1,5 @@
 --markup markdown
+--markup-provider commonmarker
 --no-private
 -
 *.md

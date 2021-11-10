@@ -103,7 +103,7 @@ If the default authentication token generator doesn't meet your needs, you can r
 
 ```ruby
 PG::AWS_RDS_IAM.auth_token_generators.add :custom do
-  PG::AWS_RDS_IAM::AuthTokenGenerator.new(credentials: ..., region: ...)
+  PG::AWS_RDS_IAM::AuthTokenGenerator.new(credentials: "...", region: "...")
 end
 ```
 
