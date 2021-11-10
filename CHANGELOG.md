@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-No notable changes.
+### Fixed
+* Make code snippets in README valid Ruby to fix syntax highlighting ([#274](https://github.com/haines/pg-aws_rds_iam/pull/274))
 
 ## [0.3.0] - 2021-11-10
 
