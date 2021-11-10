@@ -102,14 +102,14 @@ You can set this parameter in
 If the default authentication token generator doesn't meet your needs, you can register an alternative with
 
 ```ruby
-PG::AWS_IAM_RDS.auth_token_generators.add :custom do
-  PG::AWS_IAM_RDS::AuthTokenGenerator.new(credentials: ..., region: ...)
+PG::AWS_RDS_IAM.auth_token_generators.add :custom do
+  PG::AWS_RDS_IAM::AuthTokenGenerator.new(credentials: ..., region: ...)
 end
 ```
 
 To use this alternative authentication token generator, set the `aws_rds_iam_auth_token_generator` connection parameter to the name you registered it with (`custom`, in this example).
 
-The block you give to `add` must construct and return the authentication token generator, which can either be an instance of `PG::AWS_IAM_RDS::AuthTokenGenerator` or another object that returns a string token in response to `call(host:, port:, user:)`.
+The block you give to `add` must construct and return the authentication token generator, which can either be an instance of `PG::AWS_RDS_IAM::AuthTokenGenerator` or another object that returns a string token in response to `call(host:, port:, user:)`.
 The block will be called once, when the first token is generated, and the returned authentication token generator will be re-used to generate all future tokens.
 
 ## Development

@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 * Require Ruby ≥ 2.6 ([#216](https://github.com/haines/pg-aws_rds_iam/pull/216))
 
+### Fixed
+* Typos in README ([#272](https://github.com/haines/pg-aws_rds_iam/pull/272))
+
 ## [0.2.0] - 2021-01-29
 
 ### Changed
