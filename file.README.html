@@ -135,9 +135,9 @@ You can set this parameter in</p>
 </li>
 </ul>
 <p>If the default authentication token generator doesn't meet your needs, you can register an alternative with</p>
-<pre class="code ruby"><code class="ruby">PG::AWS_RDS_IAM.auth_token_generators.add :custom do
-  PG::AWS_RDS_IAM::AuthTokenGenerator.new(credentials: ..., region: ...)
-end
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="PG.html" title="PG (module)">PG</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="PG/AWS_RDS_IAM.html" title="PG::AWS_RDS_IAM (module)">AWS_RDS_IAM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auth_token_generators'><span class='object_link'><a href="PG/AWS_RDS_IAM.html#auth_token_generators-class_method" title="PG::AWS_RDS_IAM.auth_token_generators (method)">auth_token_generators</a></span></span><span class='period'>.</span><span class='id identifier rubyid_add'><span class='object_link'><a href="PG/AWS_RDS_IAM/AuthTokenGeneratorRegistry.html#add-instance_method" title="PG::AWS_RDS_IAM::AuthTokenGeneratorRegistry#add (method)">add</a></span></span> <span class='symbol'>:custom</span> <span class='kw'>do</span>
+  <span class='const'><span class='object_link'><a href="PG.html" title="PG (module)">PG</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="PG/AWS_RDS_IAM.html" title="PG::AWS_RDS_IAM (module)">AWS_RDS_IAM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="PG/AWS_RDS_IAM/AuthTokenGenerator.html" title="PG::AWS_RDS_IAM::AuthTokenGenerator (class)">AuthTokenGenerator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="PG/AWS_RDS_IAM/AuthTokenGenerator.html#initialize-instance_method" title="PG::AWS_RDS_IAM::AuthTokenGenerator#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>credentials:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>...</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>region:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>...</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
 </code></pre>
 <p>To use this alternative authentication token generator, set the <code>aws_rds_iam_auth_token_generator</code> connection parameter to the name you registered it with (<code>custom</code>, in this example).</p>
 <p>The block you give to <code>add</code> must construct and return the authentication token generator, which can either be an instance of <code>PG::AWS_RDS_IAM::AuthTokenGenerator</code> or another object that returns a string token in response to <code>call(host:, port:, user:)</code>.
@@ -156,7 +156,7 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 </div></div>
 
       <div id="footer">
-  Generated on Wed Nov 10 11:06:15 2021 by
+  Generated on Wed Nov 10 11:49:21 2021 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.26 (ruby-3.0.2).
 </div>
