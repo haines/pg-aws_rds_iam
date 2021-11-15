@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
 
+  spec.metadata["rubygems_mfa_required"] = "true"
+
   spec.files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0").reject { |path| path.start_with?("test/") } }
 
   spec.require_paths = ["lib"]
