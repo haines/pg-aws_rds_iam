@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 No notable changes.
 
+## [0.3.2] - 2021-11-15
+
+### Changed
+* Require MFA to publish gem ([#278](https://github.com/haines/pg-aws_rds_iam/pull/278))
+
 ## [0.3.1] - 2021-11-10
 
 ### Fixed
@@ -38,7 +43,8 @@ No notable changes.
 * A plugin for the [`pg` gem](https://rubygems.org/gems/pg) that adds support for [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) when connecting to PostgreSQL databases hosted in Amazon RDS. ([#1](https://github.com/haines/pg-aws_rds_iam/pull/1))
 * ActiveRecord support. ([#3](https://github.com/haines/pg-aws_rds_iam/pull/3))
 
-[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/haines/pg-aws_rds_iam/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/haines/pg-aws_rds_iam/compare/v0.1.1...v0.2.0
