@@ -58,7 +58,7 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     parallel (1.21.0)
-    parser (3.0.2.0)
+    parser (3.0.3.1)
       ast (~> 2.4.1)
     pg (1.2.3)
     pry (0.14.1)
@@ -79,7 +79,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.13.0)
       parser (>= 3.0.1.1)
-    rubocop-minitest (0.16.0)
+    rubocop-minitest (0.17.0)
       rubocop (>= 0.90, < 2.0)
     rubocop-rake (0.6.0)
       rubocop (~> 1.0)
