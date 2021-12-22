@@ -9,7 +9,7 @@ def minor_versions(name, requirement)
 end
 
 ruby_activerecord_requirements = {
-  "2.6" => ">= 5.2",
+  "2.6" => [">= 5.2", "< 7.0"],
   "2.7" => ">= 5.2",
   "3.0" => ">= 6.0"
 }
@@ -17,7 +17,8 @@ ruby_activerecord_requirements = {
 activerecord_pg_requirements = {
   "5.2" => [">= 0.18", "< 2.0"],
   "6.0" => [">= 0.18", "< 2.0"],
-  "6.1" => "~> 1.1"
+  "6.1" => "~> 1.1",
+  "7.0" => "~> 1.1"
 }
 
 versions = ruby_activerecord_requirements.flat_map do |ruby_version, activerecord_requirement|
