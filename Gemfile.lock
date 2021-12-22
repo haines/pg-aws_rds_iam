@@ -44,7 +44,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
     method_source (1.0.0)
-    minitest (5.14.4)
+    minitest (5.15.0)
     minitest-reporters (1.4.3)
       ansi
       builder
