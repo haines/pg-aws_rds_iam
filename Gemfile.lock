@@ -45,7 +45,7 @@ GEM
     jmespath (1.5.0)
     method_source (1.0.0)
     minitest (5.15.0)
-    minitest-reporters (1.4.3)
+    minitest-reporters (1.5.0)
       ansi
       builder
       minitest (>= 5.0)
