@@ -44,10 +44,15 @@ module PG
 
     private
 
+    AUTOMATICALLY_ADDED_PARAMETERS = [:fallback_application_name, :hostaddr].freeze
+
     def assert_uri_match(expected, actual)
       expected_uri, expected_query = parse_uri(expected)
       actual_uri, actual_query = parse_uri(actual)
-      actual_query.delete "fallback_application_name"
+
+      AUTOMATICALLY_ADDED_PARAMETERS.each do |key|
+        actual_query.delete key.to_s
+      end
 
       assert_equal expected_uri, actual_uri
       assert_equal expected_query, actual_query
@@ -63,8 +68,12 @@ module PG
 
     def assert_keyword_value_string_match(expected, actual)
       expected_params = parse_keyword_value_string(expected)
+
       actual_params = parse_keyword_value_string(actual)
-      actual_params.delete :fallback_application_name
+
+      AUTOMATICALLY_ADDED_PARAMETERS.each do |key|
+        actual_params.delete key
+      end
 
       assert_equal expected_params, actual_params
     end
