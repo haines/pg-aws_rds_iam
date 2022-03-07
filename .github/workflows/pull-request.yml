@@ -17,7 +17,7 @@ jobs:
         run: apk add git
 
       - name: Check out source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Bundler
         run: bin/install-bundler
@@ -40,7 +40,7 @@ jobs:
         run: test -n "${{ secrets.AVAILABLE }}"
 
       - name: Check out source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Generate version matrix
         id: version-matrix
@@ -69,7 +69,7 @@ jobs:
         run: apk add build-base git postgresql-dev tar
 
       - name: Check out source code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Bundler
         run: bin/install-bundler
