@@ -89,7 +89,7 @@ jobs:
             "${postgresql_version}"
 
       - name: Cache gems
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles('Gemfile.lock') }}
           path: vendor/bundle
