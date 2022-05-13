@@ -17,5 +17,5 @@ gem "timecop"
 gem "yard"
 
 ["activerecord", "pg"].each do |gem_name|
-  gem gem_name, *ENV["#{gem_name.upcase}_VERSION"]&.yield_self { |gem_version| "~> #{gem_version}.0" }
+  gem gem_name, *ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
 end
