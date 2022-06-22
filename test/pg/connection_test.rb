@@ -21,12 +21,20 @@ module PG
     end
 
     def test_parse_connect_args_to_uri
+      expected_for_pg_1_4_onwards = "user='example_user' host='localhost' port='5432' dbname='example_database' password='token(example_user@localhost:5432)'"
+
       {
         ["postgresql://example_user@localhost:5432/example_database?aws_rds_iam_auth_token_generator=example_auth_token_generator"] => "postgresql://example_user@localhost:5432/example_database?password=token(example_user@localhost:5432)",
         ["postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&aws_rds_iam_auth_token_generator=example_auth_token_generator"] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)",
         ["postgresql://", { user: "example_user", host: "localhost", port: 5432, dbname: "example_database", aws_rds_iam_auth_token_generator: "example_auth_token_generator" }] => "postgresql://?user=example_user&host=localhost&port=5432&dbname=example_database&password=token(example_user@localhost:5432)"
-      }.each do |args, expected|
-        assert_uri_match expected, Connection.parse_connect_args(*args)
+      }.each do |args, expected_before_pg_1_4|
+        actual = Connection.parse_connect_args(*args)
+
+        if Gem::Version.new(PG::VERSION) >= Gem::Version.new("1.4.0")
+          assert_keyword_value_string_match expected_for_pg_1_4_onwards, actual
+        else
+          assert_uri_match expected_before_pg_1_4, actual
+        end
       end
     end
 

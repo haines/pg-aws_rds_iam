@@ -12,7 +12,7 @@ module PG
 
         def initialize(connection_string)
           @uri = ::URI.parse(connection_string)
-          @query = ::URI.decode_www_form(@uri.query).to_h
+          @query = @uri.query ? ::URI.decode_www_form(@uri.query).to_h : {}
           @auth_token_generator_name = @query.delete("aws_rds_iam_auth_token_generator")
         end
 
