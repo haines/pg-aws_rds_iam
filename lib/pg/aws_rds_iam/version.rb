@@ -3,6 +3,6 @@
 module PG
   module AWS_RDS_IAM
     # The current version of the gem.
-    VERSION = "0.3.2"
+    VERSION = "0.4.0"
   end
 end
