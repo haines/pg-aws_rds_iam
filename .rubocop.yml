@@ -26,6 +26,9 @@ Minitest/MultipleAssertions:
 Naming/ClassAndModuleCamelCase:
   Enabled: false
 
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
 Style/Documentation:
   Exclude:
     - lib/pg/aws_rds_iam/auth_token_injector.rb
