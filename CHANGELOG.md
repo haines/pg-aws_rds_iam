@@ -8,9 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 * Test against Ruby 3.1 ([#305](https://github.com/haines/pg-aws_rds_iam/pull/305))
+* Require Ruby ≥ 2.6 and Active Record ≥ 6.0 ([#360](https://github.com/haines/pg-aws_rds_iam/pull/360))
 
 ### Fixed
-* Compatibility with `pg` 1.4+ ([#356](https://github.com/haines/pg-aws_rds_iam/pull/356))
+* Compatibility with `pg` ≥ 1.4 ([#356](https://github.com/haines/pg-aws_rds_iam/pull/356))
 
 ## [0.3.2] - 2021-11-15
 
