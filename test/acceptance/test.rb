@@ -7,10 +7,16 @@ require "aws-sdk-ec2"
 require "json"
 require "open-uri"
 
+require_relative "short_lived_auth_token_generator"
+
 class AcceptanceTest < Minitest::Test
   def setup
     configure_aws_credentials
     authorize_ingress
+
+    PG::AWS_RDS_IAM.auth_token_generators.add :short_lived do
+      ShortLivedAuthTokenGenerator.new
+    end
   end
 
   def teardown
@@ -25,6 +31,18 @@ class AcceptanceTest < Minitest::Test
     end
   end
 
+  def test_pg_connection_reset
+    connection = PG.connect(uri(aws_rds_iam_auth_token_generator: "short_lived"))
+
+    assert_raises PG::ConnectionBad do
+      deadline = now + (ShortLivedAuthTokenGenerator::EXPIRE_AFTER * 2)
+      while now < deadline
+        sleep 1
+        connection.reset
+      end
+    end
+  end
+
   def test_active_record_base_establish_connection
     ActiveRecord::Base.establish_connection uri
     result = ActiveRecord::Base.connection.exec_query("SELECT TRUE AS success")
@@ -34,17 +52,17 @@ class AcceptanceTest < Minitest::Test
 
   private
 
-  def uri
-    "#{base_uri}?#{uri_query}"
+  def uri(**options)
+    "#{base_uri}?#{uri_query(**options)}"
   end
 
   def base_uri
     @base_uri ||= ENV.fetch("DATABASE_URL") { terraform_output("database_url") }
   end
 
-  def uri_query
-    @uri_query ||= URI.encode_www_form(
-      aws_rds_iam_auth_token_generator: "default",
+  def uri_query(aws_rds_iam_auth_token_generator: "default")
+    URI.encode_www_form(
+      aws_rds_iam_auth_token_generator: aws_rds_iam_auth_token_generator,
       sslmode: "verify-full",
       sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
     )
@@ -101,5 +119,9 @@ class AcceptanceTest < Minitest::Test
       sleep 1
       retry
     end
+  end
+
+  def now
+    Process.clock_gettime(Process::CLOCK_MONOTONIC)
   end
 end
