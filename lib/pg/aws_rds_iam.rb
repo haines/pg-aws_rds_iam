@@ -26,5 +26,11 @@ module PG
     end
 
     PG::Connection.singleton_class.prepend Connection
+
+    if defined?(ActiveRecord)
+      require_relative "aws_rds_iam/active_record_postgresql_database_tasks"
+
+      ActiveRecord::Tasks::PostgreSQLDatabaseTasks.prepend ActiveRecordPostgreSQLDatabaseTasks
+    end
   end
 end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "test_helper"
-
 require "uri"
+
+require "test_helper"
 
 module PG
   class ConnectionTest < Minitest::Test

@@ -8,7 +8,7 @@ module PG
       end
 
       def conninfo_parse(connection_string)
-        connection_info = ConnectionInfo.new(connection_string)
+        connection_info = ConnectionInfo.from_connection_string(connection_string)
 
         super(connection_info.to_s).tap do |result|
           result << conndefault_aws_rds_iam_auth_token_generator.merge(val: connection_info.auth_token_generator_name) if connection_info.auth_token_generator_name
@@ -16,7 +16,7 @@ module PG
       end
 
       def parse_connect_args(*args)
-        AuthTokenInjector.call(super)
+        AuthTokenInjector.new.inject_into_connection_string(super)
       end
 
       private

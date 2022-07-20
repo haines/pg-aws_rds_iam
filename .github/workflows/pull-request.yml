@@ -66,7 +66,7 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: apk add build-base git postgresql-dev tar
+        run: apk add build-base git postgresql-client postgresql-dev tar
 
       - name: Check out source code
         uses: actions/checkout@v3
