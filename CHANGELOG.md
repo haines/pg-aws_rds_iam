@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 No notable changes.
 
+## [0.4.1] - 2022-07-20
+
+### Fixed
+* Generate auth token for Active Record structure load ([#374](https://github.com/haines/pg-aws_rds_iam/pull/374))
+
 ## [0.4.0] - 2022-06-22
 
 ### Changed
@@ -52,7 +57,8 @@ No notable changes.
 * A plugin for the [`pg` gem](https://rubygems.org/gems/pg) that adds support for [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) when connecting to PostgreSQL databases hosted in Amazon RDS. ([#1](https://github.com/haines/pg-aws_rds_iam/pull/1))
 * ActiveRecord support. ([#3](https://github.com/haines/pg-aws_rds_iam/pull/3))
 
-[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/haines/pg-aws_rds_iam/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/haines/pg-aws_rds_iam/compare/v0.3.0...v0.3.1
