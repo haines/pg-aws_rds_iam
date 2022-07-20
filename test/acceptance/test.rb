@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require "test_helper"
-
 require "active_record"
 require "aws-sdk-ec2"
 require "json"
 require "open-uri"
+
+require "test_helper"
 
 class AcceptanceTest < Minitest::Test
   def setup
@@ -30,6 +30,27 @@ class AcceptanceTest < Minitest::Test
     result = ActiveRecord::Base.connection.exec_query("SELECT TRUE AS success")
 
     assert result.first["success"]
+  end
+
+  def test_active_record_load_schema
+    if ActiveRecord::Base.respond_to?(:connection_db_config)
+      ActiveRecord::Base.establish_connection url: uri, use_metadata_table: false
+      db_config = ActiveRecord::Base.connection_db_config
+      options = []
+    else
+      db_config = {
+        "adapter" => "postgresql",
+        "url" => uri,
+        "use_metadata_table" => false
+      }
+      options = ["test"]
+    end
+
+    _, stderr = capture_subprocess_io do
+      ActiveRecord::Tasks::DatabaseTasks.load_schema db_config, :sql, File.expand_path("structure.sql", __dir__), *options
+    end
+
+    assert_includes stderr, "🚀"
   end
 
   private
