@@ -93,6 +93,8 @@ jobs:
         with:
           key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles('Gemfile.lock') }}
           path: vendor/bundle
+          restore-keys: |
+            ${{ steps.cache-key.outputs.cache-key }}-gems-
 
       - name: Install gems
         run: bin/bundle install
