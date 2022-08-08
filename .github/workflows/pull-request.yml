@@ -1,7 +1,11 @@
 name: Pull request
 
 on:
-  - pull_request
+  pull_request:
+
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   check-gemfile-lock:
@@ -30,15 +34,14 @@ jobs:
   version-matrix:
     name: Generate version matrix
 
+    if: github.event_name == 'pull_request' || github.event.review.state == 'approved'
+
     runs-on: ubuntu-latest
 
     outputs:
       matrix: ${{ steps.version-matrix.outputs.matrix }}
 
     steps:
-      - name: Check if secrets are available
-        run: test -n "${{ secrets.AVAILABLE }}"
-
       - name: Check out source code
         uses: actions/checkout@v3
 
