@@ -125,9 +125,10 @@ jobs:
           SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
 
   test-results:
-    if: always()
+    if: always() && needs.version-matrix.result == 'success'
 
     needs:
+      - version-matrix
       - test
 
     runs-on: ubuntu-latest
