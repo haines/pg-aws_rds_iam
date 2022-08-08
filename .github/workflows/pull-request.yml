@@ -34,7 +34,10 @@ jobs:
   version-matrix:
     name: Generate version matrix
 
-    if: github.event_name == 'pull_request' || github.event.review.state == 'approved'
+    if: |
+      (github.event_name == 'pull_request' && github.actor != 'dependabot[bot]')
+      ||
+      github.event.review.state == 'approved'
 
     runs-on: ubuntu-latest
 
