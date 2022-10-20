@@ -8,28 +8,22 @@ on:
       - submitted
 
 jobs:
-  check-gemfile-lock:
-    name: Check Gemfile.lock
+  lint:
+    name: Lint
 
     runs-on: ubuntu-latest
 
-    container:
-      image: ruby:alpine
-
     steps:
-      - name: Install dependencies
-        run: apk add git
-
       - name: Check out source code
         uses: actions/checkout@v3
 
-      - name: Install Bundler
-        run: bin/install-bundler
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
-      - name: Check Gemfile.lock
-        run: bin/bundle lock
-        env:
-          BUNDLE_FROZEN: true
+      - name: Run RuboCop
+        run: bin/rake rubocop
 
   version-matrix:
     name: Generate version matrix
@@ -62,55 +56,28 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: ruby:${{ matrix.ruby }}-alpine
-
     env:
       BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
       ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
       PG_VERSION: ${{ matrix.pg }}
 
     steps:
-      - name: Install dependencies
-        run: apk add build-base git postgresql-client postgresql-dev tar
-
       - name: Check out source code
         uses: actions/checkout@v3
 
-      - name: Install Bundler
-        run: bin/install-bundler
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
 
       - name: Update Gemfile.lock
         run: bin/bundle lock --update activerecord pg
 
-      - name: Compute cache key
-        id: cache-key
-        run: |
-          source /etc/os-release
-          postgresql_version=$(apk info --installed postgresql-dev --verbose)
-          printf \
-            "::set-output name=cache-key::alpine-%s-ruby-%s-%s\n" \
-            "${VERSION_ID}" \
-            "${RUBY_VERSION}" \
-            "${postgresql_version}"
-
-      - name: Cache gems
-        uses: actions/cache@v3
-        with:
-          key: ${{ steps.cache-key.outputs.cache-key }}-gems-${{ hashFiles('Gemfile.lock') }}
-          path: vendor/bundle
-          restore-keys: |
-            ${{ steps.cache-key.outputs.cache-key }}-gems-
-
       - name: Install gems
-        run: bin/bundle install
-        env:
-          BUNDLE_FROZEN: true
-          BUNDLE_JOBS: 4
-          BUNDLE_RETRY: 3
-
-      - name: Run RuboCop
-        run: bin/rake rubocop
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
 
       - name: Run unit tests
         run: bin/rake test:unit
