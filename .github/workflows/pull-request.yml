@@ -7,99 +7,22 @@ on:
     types:
       - submitted
 
+permissions:
+  actions: write
+
 jobs:
-  lint:
-    name: Lint
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Run RuboCop
-        run: bin/rake rubocop
-
-  version-matrix:
-    name: Generate version matrix
+  ci:
+    name: Trigger CI
 
     if: |
       (github.event_name == 'pull_request' && github.actor != 'dependabot[bot]')
       ||
-      github.event.review.state == 'approved'
+      (github.event.review.state == 'approved' && github.actor == 'haines')
 
     runs-on: ubuntu-latest
 
-    outputs:
-      matrix: ${{ steps.version-matrix.outputs.matrix }}
-
     steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-
-      - name: Generate version matrix
-        id: version-matrix
-        run: bin/version-matrix
-
-  test:
-    needs: version-matrix
-
-    strategy:
-      matrix: ${{ fromJSON(needs.version-matrix.outputs.matrix) }}
-
-    name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | ActiveRecord ${{ matrix.activerecord }}
-
-    runs-on: ubuntu-latest
-
-    env:
-      BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
-      ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
-      PG_VERSION: ${{ matrix.pg }}
-
-    steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-
-      - name: Update Gemfile.lock
-        run: bin/bundle lock --update activerecord pg
-
-      - name: Install gems
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-
-      - name: Run unit tests
-        run: bin/rake test:unit
-
-      - name: Run acceptance tests
-        run: bin/rake test:acceptance
+      - name: Trigger CI
+        run: gh workflow run ci.yml --repo "${GITHUB_REPOSITORY}" --ref "${GITHUB_REF}"
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
-
-  test-results:
-    if: always() && needs.version-matrix.result == 'success'
-
-    needs:
-      - version-matrix
-      - test
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check test results
-        run: test "${{ needs.test.result }}" = "success"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
