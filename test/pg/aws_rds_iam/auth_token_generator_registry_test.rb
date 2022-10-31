@@ -52,9 +52,11 @@ module PG
         @registry.add :test do
           executed = true
         end
+
         refute executed
 
         @registry.fetch :test
+
         assert executed
       end
 

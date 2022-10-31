@@ -15,10 +15,12 @@ module PG
           token = @auth_token_generator.call(host: "localhost", port: "5432", user: "example_user")
 
           uri = URI.parse("https://#{token}")
+
           assert_equal "localhost", uri.host
           assert_equal 5432, uri.port
 
           query = URI.decode_www_form(uri.query).to_h
+
           assert_equal "connect", query["Action"]
           assert_equal "example_user", query["DBUser"]
           assert_equal "AKIAIOSFODNN7EXAMPLE/20010203/eu-west-2/rds-db/aws4_request", query["X-Amz-Credential"]
