@@ -16,6 +16,7 @@ module PG
 
         def test_parse_with_valid_strings
           expected = { one: "red", two: "orange yellow", three: "'green' blue" }
+
           [
             "one=red two=orange\\ yellow three=\\'green\\'\\ blue",
             " one = red\n two = orange\\ yellow\n three=\\'green\\'\\ blue\n",
