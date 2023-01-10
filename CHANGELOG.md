@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-No notable changes.
+### Changed
+* Test against Ruby 3.2 ([#442](https://github.com/haines/pg-aws_rds_iam/pull/442))
+
+### Fixed
+* Handle empty host in connection URIs ([#442](https://github.com/haines/pg-aws_rds_iam/pull/442))
 
 ## [0.4.1] - 2022-07-20
 
@@ -17,7 +21,7 @@ No notable changes.
 
 ### Changed
 * Test against Ruby 3.1 ([#305](https://github.com/haines/pg-aws_rds_iam/pull/305))
-* Require Ruby ≥ 2.6 and Active Record ≥ 6.0 ([#360](https://github.com/haines/pg-aws_rds_iam/pull/360))
+* Require Ruby ≥ 2.7 and Active Record ≥ 6.0 ([#360](https://github.com/haines/pg-aws_rds_iam/pull/360))
 
 ### Fixed
 * Compatibility with `pg` ≥ 1.4 ([#356](https://github.com/haines/pg-aws_rds_iam/pull/356))

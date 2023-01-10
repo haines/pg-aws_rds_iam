@@ -11,7 +11,15 @@ end
 ruby_activerecord_requirements = {
   "2.7" => ">= 6.0",
   "3.0" => ">= 6.0",
-  "3.1" => ">= 6.0"
+  "3.1" => ">= 6.0",
+  "3.2" => ">= 6.0"
+}
+
+ruby_pg_requirements = {
+  "2.7" => "> 0",
+  "3.0" => "> 0",
+  "3.1" => "> 0",
+  "3.2" => ">= 1.3"
 }
 
 activerecord_pg_requirements = {
@@ -22,7 +30,12 @@ activerecord_pg_requirements = {
 
 versions = ruby_activerecord_requirements.flat_map do |ruby_version, activerecord_requirement|
   minor_versions("activerecord", activerecord_requirement).flat_map do |activerecord_version|
-    minor_versions("pg", activerecord_pg_requirements.fetch(activerecord_version)).map do |pg_version|
+    pg_requirement = [
+      ruby_pg_requirements.fetch(ruby_version),
+      activerecord_pg_requirements.fetch(activerecord_version)
+    ].flatten
+
+    minor_versions("pg", pg_requirement).map do |pg_version|
       {
         ruby: ruby_version,
         activerecord: activerecord_version,
@@ -34,4 +47,7 @@ end
 
 matrix = { include: versions }
 
-puts "::set-output name=matrix::#{matrix.to_json}"
+puts JSON.pretty_generate(matrix)
+
+output_file = ENV.fetch("GITHUB_OUTPUT", false)
+File.write output_file, "matrix=#{matrix.to_json}" if output_file
