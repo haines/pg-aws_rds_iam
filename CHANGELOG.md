@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 * Test against Ruby 3.2 ([#442](https://github.com/haines/pg-aws_rds_iam/pull/442))
 
+### Fixed
+* Handle empty host in connection URIs ([#442](https://github.com/haines/pg-aws_rds_iam/pull/442))
+
 ## [0.4.1] - 2022-07-20
 
 ### Fixed

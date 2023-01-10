@@ -21,7 +21,9 @@ module PG
         end
 
         def host
-          @uri.host || @query["host"]
+          return @query["host"] if @uri.host.nil? || @uri.host.empty?
+
+          @uri.host
         end
 
         def port
