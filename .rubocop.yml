@@ -23,6 +23,10 @@ Metrics/MethodLength:
 Minitest/MultipleAssertions:
   Enabled: false
 
+Minitest/TestFileName:
+  Exclude:
+    - test/acceptance/test.rb
+
 Naming/ClassAndModuleCamelCase:
   Enabled: false
 
