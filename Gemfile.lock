@@ -30,7 +30,7 @@ GEM
     aws-sdk-ec2 (1.375.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-rds (1.174.0)
+    aws-sdk-rds (1.175.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.5.2)
