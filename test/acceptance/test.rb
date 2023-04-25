@@ -9,7 +9,6 @@ require "test_helper"
 
 class AcceptanceTest < Minitest::Test
   def setup
-    configure_aws_credentials
     authorize_ingress
   end
 
@@ -60,7 +59,7 @@ class AcceptanceTest < Minitest::Test
   end
 
   def base_uri
-    @base_uri ||= ENV.fetch("DATABASE_URL") { terraform_output("database_url") }
+    @base_uri ||= ENV.fetch("DATABASE_URL")
   end
 
   def uri_query
@@ -69,18 +68,6 @@ class AcceptanceTest < Minitest::Test
       sslmode: "verify-full",
       sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
     )
-  end
-
-  def terraform_output(name)
-    @terraform_outputs ||= Dir.chdir(File.expand_path("infrastructure", __dir__)) { JSON.parse(`terraform output --json`) }
-
-    @terraform_outputs.fetch(name).fetch("value")
-  end
-
-  def configure_aws_credentials
-    ENV["AWS_ACCESS_KEY_ID"] ||= terraform_output("access_key_id")
-    ENV["AWS_SECRET_ACCESS_KEY"] ||= terraform_output("secret_access_key")
-    ENV["AWS_REGION"] ||= terraform_output("region")
   end
 
   def authorize_ingress
@@ -107,7 +94,7 @@ class AcceptanceTest < Minitest::Test
   end
 
   def security_group_id
-    @security_group_id ||= ENV.fetch("SECURITY_GROUP_ID") { terraform_output("security_group_id") }
+    @security_group_id ||= ENV.fetch("SECURITY_GROUP_ID")
   end
 
   def current_ip
