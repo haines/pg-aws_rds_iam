@@ -9,7 +9,6 @@ require "test_helper"
 
 class AcceptanceTest < Minitest::Test
   def setup
-    configure_aws_credentials
     authorize_ingress
   end
 
@@ -33,21 +32,11 @@ class AcceptanceTest < Minitest::Test
   end
 
   def test_active_record_load_schema
-    if ActiveRecord::Base.respond_to?(:connection_db_config)
-      ActiveRecord::Base.establish_connection url: uri, use_metadata_table: false
-      db_config = ActiveRecord::Base.connection_db_config
-      options = []
-    else
-      db_config = {
-        "adapter" => "postgresql",
-        "url" => uri,
-        "use_metadata_table" => false
-      }
-      options = ["test"]
-    end
+    ActiveRecord::Base.establish_connection url: uri, use_metadata_table: false
+    db_config = ActiveRecord::Base.connection_db_config
 
     _, stderr = capture_subprocess_io do
-      ActiveRecord::Tasks::DatabaseTasks.load_schema db_config, :sql, File.expand_path("structure.sql", __dir__), *options
+      ActiveRecord::Tasks::DatabaseTasks.load_schema db_config, :sql, File.expand_path("structure.sql", __dir__)
     end
 
     assert_includes stderr, "🚀"
@@ -60,7 +49,7 @@ class AcceptanceTest < Minitest::Test
   end
 
   def base_uri
-    @base_uri ||= ENV.fetch("DATABASE_URL") { terraform_output("database_url") }
+    @base_uri ||= ENV.fetch("DATABASE_URL")
   end
 
   def uri_query
@@ -69,18 +58,6 @@ class AcceptanceTest < Minitest::Test
       sslmode: "verify-full",
       sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
     )
-  end
-
-  def terraform_output(name)
-    @terraform_outputs ||= Dir.chdir(File.expand_path("infrastructure", __dir__)) { JSON.parse(`terraform output --json`) }
-
-    @terraform_outputs.fetch(name).fetch("value")
-  end
-
-  def configure_aws_credentials
-    ENV["AWS_ACCESS_KEY_ID"] ||= terraform_output("access_key_id")
-    ENV["AWS_SECRET_ACCESS_KEY"] ||= terraform_output("secret_access_key")
-    ENV["AWS_REGION"] ||= terraform_output("region")
   end
 
   def authorize_ingress
@@ -107,7 +84,7 @@ class AcceptanceTest < Minitest::Test
   end
 
   def security_group_id
-    @security_group_id ||= ENV.fetch("SECURITY_GROUP_ID") { terraform_output("security_group_id") }
+    @security_group_id ||= ENV.fetch("SECURITY_GROUP_ID")
   end
 
   def current_ip
