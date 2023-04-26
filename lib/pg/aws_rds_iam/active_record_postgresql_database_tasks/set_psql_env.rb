@@ -7,8 +7,7 @@ module PG
 
       def set_psql_env
         super
-        hash = respond_to?(:configuration_hash, true) ? configuration_hash : configuration.symbolize_keys
-        AuthTokenInjector.new.inject_into_psql_env! hash, ENV
+        AuthTokenInjector.new.inject_into_psql_env! configuration_hash, ENV
       end
     end
   end
