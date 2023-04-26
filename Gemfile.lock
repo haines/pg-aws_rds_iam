@@ -3,7 +3,7 @@ PATH
   specs:
     pg-aws_rds_iam (0.4.2)
       aws-sdk-rds (~> 1.0)
-      pg (>= 0.18, < 2.0)
+      pg (~> 1.1)
 
 GEM
   remote: https://rubygems.org/
