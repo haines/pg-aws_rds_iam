@@ -23,7 +23,14 @@ Gem::Specification.new do |spec|
 
   spec.metadata["rubygems_mfa_required"] = "true"
 
-  spec.files = Dir.chdir(__dir__) { `git ls-files -z`.split("\x0").reject { |path| path.start_with?("test/") } }
+  spec.files = Dir[
+    "lib/**/*.rb",
+    ".yardopts",
+    "CHANGELOG.md",
+    "LICENSE.txt",
+    "pg-aws_rds_iam.gemspec",
+    "README.md"
+  ]
 
   spec.require_paths = ["lib"]
 
