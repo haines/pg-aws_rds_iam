@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 * Require Ruby ≥ 3.0, Active Record ≥ 6.1, and PG ≥ 1.1 ([#492](https://github.com/haines/pg-aws_rds_iam/pull/492))
 
+### Removed
+* Development files that were unnecessarily included in the gem ([#498](https://github.com/haines/pg-aws_rds_iam/pull/498))
+
 ## [0.4.2] - 2023-01-10
 
 ### Changed
