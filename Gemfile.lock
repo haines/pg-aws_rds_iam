@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pg-aws_rds_iam (0.4.2)
+    pg-aws_rds_iam (0.5.0)
       aws-sdk-rds (~> 1.0)
       pg (~> 1.1)
 
