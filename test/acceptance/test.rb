@@ -56,7 +56,7 @@ class AcceptanceTest < Minitest::Test
     @uri_query ||= URI.encode_www_form(
       aws_rds_iam_auth_token_generator: "default",
       sslmode: "verify-full",
-      sslrootcert: File.expand_path("rds-ca-2019-root.pem", __dir__)
+      sslrootcert: File.expand_path("us-east-1-bundle.pem", __dir__)
     )
   end
 
