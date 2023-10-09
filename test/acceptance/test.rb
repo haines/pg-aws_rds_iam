@@ -7,6 +7,8 @@ require "open-uri"
 
 require "test_helper"
 
+require_relative "active_record_disable_metadata_table_fix"
+
 class AcceptanceTest < Minitest::Test
   def setup
     authorize_ingress
