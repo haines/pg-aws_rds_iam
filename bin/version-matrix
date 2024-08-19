@@ -25,7 +25,8 @@ ruby_pg_requirements = {
 activerecord_pg_requirements = {
   "6.1" => "~> 1.1",
   "7.0" => "~> 1.1",
-  "7.1" => "~> 1.1"
+  "7.1" => "~> 1.1",
+  "7.2" => "~> 1.1"
 }
 
 versions = ruby_activerecord_requirements.flat_map do |ruby_version, activerecord_requirement|
