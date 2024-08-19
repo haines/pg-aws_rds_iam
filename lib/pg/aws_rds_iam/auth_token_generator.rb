@@ -11,7 +11,7 @@ module PG
       # @param credentials [Aws::CredentialProvider] the IAM credentials with which to sign the token
       # @param region [String] the AWS region in which the RDS instances are running
       def initialize(credentials:, region:)
-        @generator = Aws::RDS::AuthTokenGenerator.new(credentials: credentials)
+        @generator = Aws::RDS::AuthTokenGenerator.new(credentials:)
         @region = region
       end
 

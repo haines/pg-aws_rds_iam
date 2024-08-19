@@ -7,7 +7,7 @@ module PG
     class AuthTokenGeneratorTest < Minitest::Test
       def setup
         credentials = Aws::Credentials.new("AKIAIOSFODNN7EXAMPLE", "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
-        @auth_token_generator = AuthTokenGenerator.new(credentials: credentials, region: "eu-west-2")
+        @auth_token_generator = AuthTokenGenerator.new(credentials:, region: "eu-west-2")
       end
 
       def test_generate_token
