@@ -9,14 +9,12 @@ def minor_versions(name, requirement)
 end
 
 ruby_activerecord_requirements = {
-  "3.0" => ">= 6.1",
   "3.1" => ">= 6.1",
   "3.2" => ">= 6.1",
   "3.3" => ">= 6.1"
 }
 
 ruby_pg_requirements = {
-  "3.0" => "> 0",
   "3.1" => "> 0",
   "3.2" => ">= 1.3",
   "3.3" => ">= 1.3"

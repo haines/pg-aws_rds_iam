@@ -18,8 +18,8 @@ module PG
       # @param name [String, Symbol]
       # @return [void]
       # @yieldreturn [AuthTokenGenerator]
-      def add(name, &block)
-        @registry[name.to_s] = Memoizer.new(&block)
+      def add(name, &)
+        @registry[name.to_s] = Memoizer.new(&)
       end
 
       # Looks up an {AuthTokenGenerator} by name.
