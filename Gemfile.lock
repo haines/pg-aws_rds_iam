@@ -75,6 +75,8 @@ GEM
     rainbow (3.1.1)
     rake (13.2.1)
     regexp_parser (2.9.2)
+    rexml (3.3.6)
+      strscan
     rubocop (1.66.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
@@ -94,6 +96,7 @@ GEM
       rubocop (~> 1.0)
     ruby-progressbar (1.13.0)
     securerandom (0.3.1)
+    strscan (3.1.0)
     timecop (0.9.10)
     timeout (0.4.1)
     tzinfo (2.0.6)
@@ -115,6 +118,7 @@ DEPENDENCIES
   pg-aws_rds_iam!
   pry
   rake
+  rexml
   rubocop
   rubocop-minitest
   rubocop-rake
