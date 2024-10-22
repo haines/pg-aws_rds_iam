@@ -32,5 +32,11 @@ module PG
 
       ActiveRecord::Tasks::PostgreSQLDatabaseTasks.prepend ActiveRecordPostgreSQLDatabaseTasks
     end
+
+    if defined?(Rails::DBConsole)
+      require_relative "aws_rds_iam/rails_dbconsole_db_config"
+
+      Rails::DBConsole.prepend RailsDBConsole
+    end
   end
 end

@@ -23,6 +23,13 @@ module PG
         psql_env["PGPASSWORD"] = generate_auth_token(connection_info)
       end
 
+      def inject_into_env!(configuration_hash)
+        connection_info = ConnectionInfo.from_active_record_configuration_hash(configuration_hash)
+        return unless generate_auth_token?(connection_info)
+
+        ENV["PGPASSWORD"] = generate_auth_token(connection_info)
+      end
+
       private
 
       def generate_auth_token?(connection_info)
