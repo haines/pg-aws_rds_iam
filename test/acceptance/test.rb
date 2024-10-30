@@ -3,6 +3,7 @@
 require "active_record"
 require "aws-sdk-ec2"
 require "json"
+require "open3"
 require "open-uri"
 
 require "test_helper"
@@ -40,6 +41,24 @@ class AcceptanceTest < Minitest::Test
     end
 
     assert_includes stderr, "🚀"
+  end
+
+  def test_rails_dbconsole
+    stdout, stderr, status = Open3.capture3(
+      {
+        "DATABASE_URL" => uri,
+        "PGPASSWORD" => "none",
+        "PSQLRC" => File.expand_path("rails/.psqlrc", __dir__),
+        "RUBYOPT" => "-W0"
+      },
+      RbConfig.ruby,
+      File.expand_path("rails/dbconsole.rb", __dir__),
+      stdin_data: "SELECT 'success';\n"
+    )
+
+    assert_empty stderr
+    assert_equal "success\n", stdout
+    assert_predicate status, :success?
   end
 
   private

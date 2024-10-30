@@ -65,7 +65,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
 
       - name: Update Gemfile.lock
-        run: bin/bundle lock --update activerecord pg
+        run: bin/bundle lock --update activerecord pg railties
 
       - name: Install gems
         uses: ruby/setup-ruby@v1
