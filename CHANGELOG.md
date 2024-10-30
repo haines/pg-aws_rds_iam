@@ -12,6 +12,9 @@ No notable changes.
 
 ### Changed
 * Require Ruby ≥ 3.1 ([#653](https://github.com/haines/pg-aws_rds_iam/pull/653))
+* Test against Ruby 3.3 ([#589](https://github.com/haines/pg-aws_rds_iam/pull/589))
+* Test against Active Record 7.1 ([#562](https://github.com/haines/pg-aws_rds_iam/pull/562))
+* Test against Active Record 7.2 ([#653](https://github.com/haines/pg-aws_rds_iam/pull/653))
 
 ### Fixed
 * Generate auth token for `rails dbconsole` command ([#678](https://github.com/haines/pg-aws_rds_iam/pull/678))
@@ -40,8 +43,9 @@ No notable changes.
 ## [0.4.0] - 2022-06-22
 
 ### Changed
-* Test against Ruby 3.1 ([#305](https://github.com/haines/pg-aws_rds_iam/pull/305))
 * Require Ruby ≥ 2.7 and Active Record ≥ 6.0 ([#360](https://github.com/haines/pg-aws_rds_iam/pull/360))
+* Test against Ruby 3.1 ([#305](https://github.com/haines/pg-aws_rds_iam/pull/305))
+* Test against Active Record 7.0 ([#291](https://github.com/haines/pg-aws_rds_iam/pull/291))
 
 ### Fixed
 * Compatibility with `pg` ≥ 1.4 ([#356](https://github.com/haines/pg-aws_rds_iam/pull/356))
