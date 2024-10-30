@@ -1,0 +1,4 @@
+\set QUIET on
+\set PROMPT1 ''
+\pset format csv
+\pset tuples_only on

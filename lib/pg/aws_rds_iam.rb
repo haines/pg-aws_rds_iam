@@ -28,9 +28,23 @@ module PG
     PG::Connection.singleton_class.prepend Connection
 
     if defined?(ActiveRecord)
+      require "active_record/connection_adapters/postgresql_adapter"
+
+      if ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.respond_to?(:dbconsole)
+        require_relative "aws_rds_iam/active_record_postgresql_adapter"
+
+        ActiveRecord::ConnectionAdapters::PostgreSQLAdapter.singleton_class.prepend ActiveRecordPostgreSQLAdapter
+      end
+
       require_relative "aws_rds_iam/active_record_postgresql_database_tasks"
 
       ActiveRecord::Tasks::PostgreSQLDatabaseTasks.prepend ActiveRecordPostgreSQLDatabaseTasks
+    end
+
+    if defined?(Rails::DBConsole) && Rails::DBConsole.private_instance_methods.include?(:find_cmd_and_exec)
+      require_relative "aws_rds_iam/rails_dbconsole"
+
+      Rails::DBConsole.prepend RailsDBConsole
     end
   end
 end

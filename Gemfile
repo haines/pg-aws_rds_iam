@@ -17,6 +17,12 @@ gem "rubocop-rake"
 gem "timecop"
 gem "yard"
 
-["activerecord", "pg"].each do |gem_name|
-  gem gem_name, *ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
+def gem_version(gem_name)
+  ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
 end
+
+["activerecord", "pg"].each do |gem_name|
+  gem gem_name, *gem_version(gem_name)
+end
+
+gem "railties", *gem_version("activerecord")

@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 * Require Ruby ≥ 3.1 ([#653](https://github.com/haines/pg-aws_rds_iam/pull/653))
 
+### Fixed
+* Generate auth token for `rails dbconsole` command ([#677](https://github.com/haines/pg-aws_rds_iam/pull/677))
+
 ## [0.5.0] - 2023-05-04
 
 ### Changed
