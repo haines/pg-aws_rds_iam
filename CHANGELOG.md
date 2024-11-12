@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed
 * Test against Active Record 8.0 ([#685](https://github.com/haines/pg-aws_rds_iam/pull/685))
+* Use `URI::RFC2396_PARSER.regexp[:ABS_URI_REF]` directly to resolve deprecation warning introduced in [ruby/uri#113](https://github.com/ruby/uri/pull/113) ([#685](https://github.com/haines/pg-aws_rds_iam/pull/685))
 
 ## [0.6.0] - 2024-10-30
 
