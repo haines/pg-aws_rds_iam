@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+No notable changes.
+
+## [0.7.0] - 2024-12-04
+
 ### Changed
 * Reuse tokens ([#690](https://github.com/haines/pg-aws_rds_iam/pull/690))
 
@@ -97,7 +101,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 * A plugin for the [`pg` gem](https://rubygems.org/gems/pg) that adds support for [IAM authentication](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html) when connecting to PostgreSQL databases hosted in Amazon RDS. ([#1](https://github.com/haines/pg-aws_rds_iam/pull/1))
 * ActiveRecord support. ([#3](https://github.com/haines/pg-aws_rds_iam/pull/3))
 
-[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/haines/pg-aws_rds_iam/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/haines/pg-aws_rds_iam/compare/v0.6.2...v0.7.0
 [0.6.2]: https://github.com/haines/pg-aws_rds_iam/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/haines/pg-aws_rds_iam/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/haines/pg-aws_rds_iam/compare/v0.5.0...v0.6.0
