@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-No notable changes.
+### Changed
+* Reuse tokens ([#690](https://github.com/haines/pg-aws_rds_iam/pull/690))
 
 ## [0.6.2] - 2024-11-12
 

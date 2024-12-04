@@ -39,6 +39,7 @@ Style/Documentation:
     - lib/pg/aws_rds_iam/active_record_postgresql_database_tasks.rb
     - lib/pg/aws_rds_iam/active_record_postgresql_database_tasks/**/*.rb
     - lib/pg/aws_rds_iam/auth_token_injector.rb
+    - lib/pg/aws_rds_iam/auth_token.rb
     - lib/pg/aws_rds_iam/connection_info.rb
     - lib/pg/aws_rds_iam/connection_info/**/*.rb
     - lib/pg/aws_rds_iam/connection.rb
