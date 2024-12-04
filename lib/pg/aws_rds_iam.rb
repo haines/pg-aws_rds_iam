@@ -5,6 +5,7 @@ require "pg"
 require "strscan"
 require "uri"
 
+require_relative "aws_rds_iam/auth_token"
 require_relative "aws_rds_iam/auth_token_generator"
 require_relative "aws_rds_iam/auth_token_generator_registry"
 require_relative "aws_rds_iam/auth_token_injector"

@@ -8,6 +8,7 @@ require "minitest/reporters"
 Minitest::Reporters.use!
 
 require "timecop"
+Timecop.mock_process_clock = true
 Timecop.safe_mode = true
 
 require "minitest/autorun"
