@@ -5,7 +5,7 @@ gemspec
 
 gem "aws-sdk-ec2"
 gem "bundler"
-gem "commonmarker"
+gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
 gem "minitest"
 gem "minitest-reporters"
 gem "pry"
