@@ -15,6 +15,7 @@ gem "rubocop"
 gem "rubocop-minitest"
 gem "rubocop-rake"
 gem "timecop"
+gem "webrick"
 gem "yard"
 
 def gem_version(gem_name)
