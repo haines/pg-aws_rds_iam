@@ -93,6 +93,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    mutex_m (0.3.0)
     nokogiri (1.16.8)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -178,10 +179,13 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   aws-sdk-ec2
+  base64
+  bigdecimal
   bundler
   commonmarker (< 1.0)
   minitest
   minitest-reporters
+  mutex_m
   pg
   pg-aws_rds_iam!
   pry
