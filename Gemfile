@@ -4,10 +4,13 @@ source "https://rubygems.org"
 gemspec
 
 gem "aws-sdk-ec2"
+gem "base64"
+gem "bigdecimal"
 gem "bundler"
 gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
 gem "minitest"
 gem "minitest-reporters"
+gem "mutex_m"
 gem "pry"
 gem "rake"
 gem "rexml"
