@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "logger"
 require "active_record"
 require "aws-sdk-ec2"
 require "json"
