@@ -3,6 +3,9 @@
   "extends": ["schedule:weekly"],
   "configMigration": true,
   "reviewers": ["haines"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "packageRules": [
     {
       "matchPackageNames": ["*"],
