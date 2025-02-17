@@ -50,8 +50,6 @@ module PG
       end
     end
 
-    private
-
     AUTOMATICALLY_ADDED_PARAMETERS = [:fallback_application_name, :hostaddr].freeze
 
     def assert_uri_match(expected, actual)
