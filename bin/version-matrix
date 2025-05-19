@@ -8,35 +8,14 @@ def minor_versions(name, requirement)
   tuples.map { |tuple, _source| tuple.version.segments.first(2).join(".") }.uniq
 end
 
-ruby_activerecord_requirements = {
-  "3.1" => [">= 6.1", "< 8"],
-  "3.2" => ">= 6.1",
-  "3.3" => ">= 6.1",
-  "3.4" => ">= 6.1"
-}
+gemspec = Gem::Specification.load(File.expand_path("../pg-aws_rds_iam.gemspec", __dir__))
 
-ruby_pg_requirements = {
-  "3.1" => "> 0",
-  "3.2" => ">= 1.3",
-  "3.3" => ">= 1.3",
-  "3.4" => ">= 1.3"
-}
+ruby_versions = ["3.2", "3.3", "3.4"]
+activerecord_requirement = ">= 7.0"
+pg_requirement = gemspec.dependencies.find { |dependency| dependency.name == "pg" }.requirement
 
-activerecord_pg_requirements = {
-  "6.1" => "~> 1.1",
-  "7.0" => "~> 1.1",
-  "7.1" => "~> 1.1",
-  "7.2" => "~> 1.1",
-  "8.0" => "~> 1.1"
-}
-
-versions = ruby_activerecord_requirements.flat_map do |ruby_version, activerecord_requirement|
+versions = ruby_versions.flat_map do |ruby_version|
   minor_versions("activerecord", activerecord_requirement).flat_map do |activerecord_version|
-    pg_requirement = [
-      ruby_pg_requirements.fetch(ruby_version),
-      activerecord_pg_requirements.fetch(activerecord_version)
-    ].flatten
-
     minor_versions("pg", pg_requirement).map do |pg_version|
       {
         ruby: ruby_version,
