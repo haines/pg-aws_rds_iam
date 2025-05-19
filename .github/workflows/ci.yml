@@ -32,6 +32,9 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v4
 
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+
       - name: Generate version matrix
         id: version-matrix
         run: bin/version-matrix
