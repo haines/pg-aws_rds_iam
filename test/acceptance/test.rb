@@ -45,6 +45,9 @@ class AcceptanceTest < Minitest::Test
   end
 
   def test_rails_dbconsole
+    args = [File.expand_path("rails/dbconsole.rb", __dir__)]
+    args.unshift("-r", File.expand_path("rails/simplecov.rb", __dir__)) if defined?(SimpleCov) && SimpleCov.running
+
     stdout, stderr, status = Open3.capture3(
       {
         "DATABASE_URL" => uri,
@@ -53,7 +56,7 @@ class AcceptanceTest < Minitest::Test
         "RUBYOPT" => "-W0"
       },
       RbConfig.ruby,
-      File.expand_path("rails/dbconsole.rb", __dir__),
+      *args,
       stdin_data: "SELECT 'success';\n"
     )
 
