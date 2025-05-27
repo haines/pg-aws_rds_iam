@@ -112,6 +112,13 @@ To use this alternative authentication token generator, set the `aws_rds_iam_aut
 The block you give to `add` must construct and return the authentication token generator, which can either be an instance of `PG::AWS_RDS_IAM::AuthTokenGenerator` or another object that returns a string token in response to `call(host:, port:, user:)`.
 The block will be called once, when the first token is generated, and the returned authentication token generator will be re-used to generate all future tokens.
 
+### 4. Set `sslmode` to `verify-full` (recommended)
+
+Although not required to use IAM authentication, to further improve security when connecting to your database, you should consider setting the `sslmode` connection parameter to `verify-full`.
+This ensures that your application is connecting to an RDS instance, preventing man-in-the-middle attacks.
+
+You'll need to [download the RDS certificate bundle from AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html) and set the `sslrootcert` connection parameter to the path to the downloaded file.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies.
