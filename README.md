@@ -97,6 +97,7 @@ You can set this parameter in
     port: 5432
     database: blog
     aws_rds_iam_auth_token_generator: default
+    sslmode: require # if you are using postgres > 15
   ```
 
 If the default authentication token generator doesn't meet your needs, you can register an alternative with
