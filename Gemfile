@@ -17,6 +17,7 @@ gem "rexml"
 gem "rubocop"
 gem "rubocop-minitest"
 gem "rubocop-rake"
+gem "simplecov", require: false
 gem "timecop"
 gem "webrick"
 gem "yard"

@@ -32,6 +32,11 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v4
 
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: none
+
       - name: Generate version matrix
         id: version-matrix
         run: bin/version-matrix
@@ -41,8 +46,9 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(needs.version-matrix.outputs.matrix) }}
+      max-parallel: 8
 
-    name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | ActiveRecord ${{ matrix.activerecord }}
+    name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | Active Record ${{ matrix.activerecord }}
 
     runs-on: ubuntu-latest
 
@@ -89,6 +95,13 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
 
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-ruby-${{ matrix.ruby }}-pg-${{ matrix.pg }}-activerecord-${{ matrix.activerecord }}
+          path: coverage/.resultset.json
+          include-hidden-files: true
+
   test-results:
     name: Check test results
 
@@ -103,3 +116,28 @@ jobs:
     steps:
       - name: Check test results
         run: test "${{ needs.test.result }}" = "success"
+
+      - name: Check out source code
+        uses: actions/checkout@v4
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Download test coverage
+        uses: actions/download-artifact@v4
+        with:
+          pattern: coverage-*
+
+      - name: Collate test coverage
+        run: bin/rake coverage:collate
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage
+
+      - name: Report test coverage
+        uses: k1LoW/octocov-action@v1.5.0

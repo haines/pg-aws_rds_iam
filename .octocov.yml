@@ -1,0 +1,8 @@
+codeToTestRatio:
+  code:
+    - lib/**/*.rb
+  test:
+    - test/**/*.rb
+
+summary:
+  if: true
