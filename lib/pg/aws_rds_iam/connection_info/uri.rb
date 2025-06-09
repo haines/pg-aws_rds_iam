@@ -5,14 +5,7 @@ module PG
     module ConnectionInfo
       class URI
         def self.match?(connection_string)
-          regexp =
-            if defined?(::URI::RFC2396_PARSER)
-              ::URI::RFC2396_PARSER.regexp[:ABS_URI_REF]
-            else
-              ::URI::ABS_URI_REF
-            end
-
-          /\A#{regexp}\z/.match?(connection_string)
+          /\A#{::URI::RFC2396_PARSER.regexp[:ABS_URI_REF]}\z/.match?(connection_string)
         end
 
         attr_reader :auth_token_generator_name
