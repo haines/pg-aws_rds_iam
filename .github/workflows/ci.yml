@@ -46,6 +46,7 @@ jobs:
 
     strategy:
       matrix: ${{ fromJSON(needs.version-matrix.outputs.matrix) }}
+      max-parallel: 8
 
     name: Ruby ${{ matrix.ruby }} | PG ${{ matrix.pg }} | Active Record ${{ matrix.activerecord }}
 
