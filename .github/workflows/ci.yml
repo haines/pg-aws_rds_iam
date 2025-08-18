@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Check out source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
@@ -118,7 +118,7 @@ jobs:
         run: test "${{ needs.test.result }}" = "success"
 
       - name: Check out source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
