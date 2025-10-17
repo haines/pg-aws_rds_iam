@@ -99,6 +99,14 @@ You can set this parameter in
     aws_rds_iam_auth_token_generator: default
   ```
 
+* `driver_options`, if you're using Sequel:
+
+  ```ruby
+  Sequel.connect("postgresql://andrew@postgresql.example.com:5432/blog", driver_options: {
+    aws_rds_iam_auth_token_generator: "default"
+  })
+  ```
+
 If the default authentication token generator doesn't meet your needs, you can register an alternative with
 
 ```ruby
