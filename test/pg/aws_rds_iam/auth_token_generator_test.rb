@@ -19,6 +19,10 @@ module PG
             { host: "127.0.0.1", port: "5432", user: "example_user" }
           ].map { |params| [params, @auth_token_generator.call(**params)] }
 
+          unique_tokens = tokens.uniq { |(_, token)| token }
+
+          assert_equal tokens, unique_tokens
+
           tokens.each do |params, token|
             assert_token token, **params
 
@@ -30,7 +34,7 @@ module PG
               new_token = @auth_token_generator.call(**params)
 
               refute_equal token, new_token
-              assert_token token, **params
+              assert_token new_token, **params
             end
           end
         end
