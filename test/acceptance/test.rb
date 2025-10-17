@@ -6,6 +6,7 @@ require "aws-sdk-ec2"
 require "json"
 require "open3"
 require "open-uri"
+require "sequel"
 
 require "test_helper"
 
@@ -21,27 +22,41 @@ class AcceptanceTest < Minitest::Test
   def test_pg_connect
     connection = PG.connect(uri)
 
-    connection.exec "SELECT TRUE AS success" do |result|
-      assert result.first["success"]
+    begin
+      connection.exec "SELECT TRUE AS success" do |result|
+        assert result.first["success"]
+      end
+    ensure
+      connection.close
     end
   end
 
   def test_active_record_base_establish_connection
     ActiveRecord::Base.establish_connection uri
-    result = ActiveRecord::Base.connection.exec_query("SELECT TRUE AS success")
 
-    assert result.first["success"]
+    begin
+      result = ActiveRecord::Base.connection.exec_query("SELECT TRUE AS success")
+
+      assert result.first["success"]
+    ensure
+      ActiveRecord::Base.connection.disconnect!
+    end
   end
 
   def test_active_record_load_schema
     ActiveRecord::Base.establish_connection url: uri, use_metadata_table: false
-    db_config = ActiveRecord::Base.connection_db_config
 
-    _, stderr = capture_subprocess_io do
-      ActiveRecord::Tasks::DatabaseTasks.load_schema db_config, :sql, File.expand_path("structure.sql", __dir__)
+    begin
+      db_config = ActiveRecord::Base.connection_db_config
+
+      _, stderr = capture_subprocess_io do
+        ActiveRecord::Tasks::DatabaseTasks.load_schema db_config, :sql, File.expand_path("structure.sql", __dir__)
+      end
+
+      assert_includes stderr, "🚀"
+    ensure
+      ActiveRecord::Base.connection.disconnect!
     end
-
-    assert_includes stderr, "🚀"
   end
 
   def test_rails_dbconsole
@@ -63,6 +78,12 @@ class AcceptanceTest < Minitest::Test
     assert_empty stderr
     assert_equal "success\n", stdout
     assert_predicate status, :success?
+  end
+
+  def test_sequel
+    Sequel.connect uri, driver_options: { aws_rds_iam_auth_token_generator: "default" } do |database|
+      assert database.fetch("SELECT TRUE AS success").get(:success)
+    end
   end
 
   private
