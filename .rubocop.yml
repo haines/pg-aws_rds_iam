@@ -10,6 +10,8 @@ AllCops:
     - bin/rake
     - bin/yard
     - vendor/**/*
+  SuggestExtensions:
+    rubocop-sequel: false
 
 Layout/LineLength:
   Enabled: false
