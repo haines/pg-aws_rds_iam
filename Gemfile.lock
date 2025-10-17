@@ -104,6 +104,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
+    openssl (3.3.1)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -178,6 +179,8 @@ GEM
       rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
+    sequel (5.97.0)
+      bigdecimal
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -214,6 +217,7 @@ DEPENDENCIES
   minitest
   minitest-reporters
   mutex_m
+  openssl
   pg
   pg-aws_rds_iam!
   pry
@@ -223,10 +227,11 @@ DEPENDENCIES
   rubocop
   rubocop-minitest
   rubocop-rake
+  sequel
   simplecov
   timecop
   webrick
   yard
 
 BUNDLED WITH
-   2.6.9
+   2.7.2
