@@ -96,7 +96,7 @@ jobs:
           SECURITY_GROUP_ID: ${{ secrets.SECURITY_GROUP_ID }}
 
       - name: Upload test coverage
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-ruby-${{ matrix.ruby }}-pg-${{ matrix.pg }}-activerecord-${{ matrix.activerecord }}
           path: coverage/.resultset.json
@@ -126,7 +126,7 @@ jobs:
           bundler-cache: true
 
       - name: Download test coverage
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           pattern: coverage-*
 
@@ -134,7 +134,7 @@ jobs:
         run: bin/rake coverage:collate
 
       - name: Upload test coverage
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage
           path: coverage
