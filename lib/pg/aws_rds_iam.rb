@@ -12,6 +12,7 @@ require_relative "aws_rds_iam/auth_token_injector"
 require_relative "aws_rds_iam/connection"
 require_relative "aws_rds_iam/connection_info"
 require_relative "aws_rds_iam/version"
+require_relative "aws_rds_iam/active_record_postgresql_adapter_patch" if defined?(ActiveRecord)
 
 # The top-level [PG](https://deveiate.org/code/pg/PG.html) namespace.
 module PG
