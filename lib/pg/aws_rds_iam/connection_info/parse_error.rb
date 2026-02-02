@@ -3,7 +3,8 @@
 module PG
   module AWS_RDS_IAM
     module ConnectionInfo
-      ParseError = Class.new(StandardError)
+      class ParseError < StandardError
+      end
     end
   end
 end

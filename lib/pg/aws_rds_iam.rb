@@ -42,7 +42,7 @@ module PG
       ActiveRecord::Tasks::PostgreSQLDatabaseTasks.prepend ActiveRecordPostgreSQLDatabaseTasks
     end
 
-    if defined?(Rails::DBConsole) && Rails::DBConsole.private_instance_methods.include?(:find_cmd_and_exec)
+    if defined?(Rails::DBConsole) && Rails::DBConsole.private_method_defined?(:find_cmd_and_exec)
       require_relative "aws_rds_iam/rails_dbconsole"
 
       Rails::DBConsole.prepend RailsDBConsole
