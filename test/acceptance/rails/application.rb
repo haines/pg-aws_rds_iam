@@ -2,4 +2,5 @@
 
 require "pg/aws_rds_iam"
 
-TestApplication = Class.new(Rails::Application)
+class TestApplication < Rails::Application
+end
