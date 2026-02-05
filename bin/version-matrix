@@ -10,7 +10,7 @@ end
 
 gemspec = Gem::Specification.load(File.expand_path("../pg-aws_rds_iam.gemspec", __dir__))
 
-ruby_versions = ["3.2", "3.3", "3.4"]
+ruby_versions = ["3.2", "3.3", "3.4", "4.0"]
 activerecord_requirement = ">= 7.0"
 pg_requirement = gemspec.dependencies.find { |dependency| dependency.name == "pg" }.requirement
 
