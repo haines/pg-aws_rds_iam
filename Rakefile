@@ -5,7 +5,6 @@ require "bundler/gem_tasks"
 require "minitest/test_task"
 require "pg/version"
 require "rubocop/rake_task"
-require "yard"
 
 namespace :test do
   {
@@ -29,14 +28,20 @@ RuboCop::RakeTask.new do |t|
   t.formatters = ENV["CI"] ? ["github", "clang"] : ["fuubar"]
 end
 
-desc "Generate documentation"
-YARD::Rake::YardocTask.new
+begin
+  require "yard"
 
-namespace :yard do
-  desc "Run documentation server"
-  task :server do
-    exec "bin/yard", "server", "--reload"
+  desc "Generate documentation"
+  YARD::Rake::YardocTask.new
+
+  namespace :yard do
+    desc "Run documentation server"
+    task :server do
+      exec "bin/yard", "server", "--reload"
+    end
   end
+rescue LoadError
+  # Bundle installed without docs group
 end
 
 namespace :coverage do

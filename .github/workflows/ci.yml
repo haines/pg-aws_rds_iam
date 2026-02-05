@@ -62,6 +62,7 @@ jobs:
 
     env:
       BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
+      BUNDLE_WITHOUT: docs
       ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
       PG_VERSION: ${{ matrix.pg }}
 

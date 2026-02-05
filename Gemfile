@@ -7,7 +7,6 @@ gem "aws-sdk-ec2"
 gem "base64"
 gem "bigdecimal"
 gem "bundler"
-gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
 gem "minitest"
 gem "minitest-reporters"
 gem "mutex_m"
@@ -21,8 +20,12 @@ gem "rubocop-rake"
 gem "sequel"
 gem "simplecov", require: false
 gem "timecop"
-gem "webrick"
-gem "yard"
+
+group :docs do
+  gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
+  gem "webrick"
+  gem "yard"
+end
 
 def gem_version(gem_name)
   ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
