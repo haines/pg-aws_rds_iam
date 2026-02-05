@@ -17,5 +17,6 @@
       "enabled": false,
       "description": "https://github.com/lsegal/yard/issues/1528"
     }
-  ]
+  ],
+  "separateMultipleMajor": true
 }
