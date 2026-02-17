@@ -8,7 +8,7 @@
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["major", "minor", "patch", "lockFileMaintenance"],
+      "matchPackageNames": ["*"],
       "groupName": "dependencies"
     },
     {
