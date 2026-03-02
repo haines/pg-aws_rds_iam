@@ -7,7 +7,7 @@ module PG
     class AuthTokenGeneratorRegistryTest < Minitest::Test
       def setup
         @registry = AuthTokenGeneratorRegistry.new(
-          default_auth_token_generator_class: Struct.new(:credentials, :region, keyword_init: true)
+          default_auth_token_generator_class: Struct.new(:credentials, :region)
         )
       end
 
