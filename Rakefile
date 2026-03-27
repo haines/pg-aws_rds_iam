@@ -24,20 +24,20 @@ begin
 
   desc "Run all tests"
   task :test => ["test:unit", "test:acceptance"]
-
-  namespace :coverage do
-    CLEAN.include "coverage"
-
-    desc "Collate coverage reports"
-    task :collate do
-      require "simplecov"
-      SimpleCov.collate Dir.glob("coverage-*/.resultset.json") do
-        formatter SimpleCov::Formatter::HTMLFormatter
-      end
-    end
-  end
 rescue LoadError
   # Bundle installed without test group
+end
+
+namespace :coverage do
+  CLEAN.include "coverage"
+
+  desc "Collate coverage reports"
+  task :collate do
+    require "simplecov"
+    SimpleCov.collate Dir.glob("coverage-*/.resultset.json") do
+      formatter SimpleCov::Formatter::HTMLFormatter
+    end
+  end
 end
 
 begin
