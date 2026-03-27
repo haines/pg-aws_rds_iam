@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "active_record/version"
-require "bundler/gem_tasks"
 require "minitest/test_task"
 require "pg/version"
+require "rake/clean"
 require "rubocop/rake_task"
 
 namespace :test do
@@ -31,6 +31,9 @@ end
 begin
   require "yard"
 
+  CLEAN.include ".yardoc"
+  CLOBBER.include "doc"
+
   desc "Generate documentation"
   YARD::Rake::YardocTask.new
 
@@ -45,12 +48,51 @@ rescue LoadError
 end
 
 namespace :coverage do
+  CLEAN.include "coverage"
+
   desc "Collate coverage reports"
   task :collate do
     require "simplecov"
     SimpleCov.collate Dir.glob("coverage-*/.resultset.json") do
       formatter SimpleCov::Formatter::HTMLFormatter
     end
+  end
+end
+
+namespace :release do
+  CLOBBER.include "pkg"
+
+  built_gem_path = nil
+  attestation_path = nil
+
+  desc "Build gem"
+  task :build do
+    require "bundler/gem_helper"
+    built_gem_path = Bundler::GemHelper.new.build_gem
+  end
+
+  desc "Sign gem"
+  task :sign => :build do
+    attestation_path = "#{built_gem_path}.sigstore.json"
+    sh "cosign", "sign-blob", built_gem_path, "--bundle", attestation_path
+  end
+
+  desc "Push gem"
+  task :push => :sign do
+    sh "gem", "push", built_gem_path, "--attestation", attestation_path
+  end
+
+  desc "Tag release"
+  task :tag do
+    require "pg/aws_rds_iam/version"
+
+    version = PG::AWS_RDS_IAM::VERSION
+    tag = "v#{version}"
+
+    abort "Unclean working directory" unless system("git", "diff", "--quiet")
+
+    sh "git", "tag", "--message=Version #{version}", "--sign", tag
+    sh "git", "push", "origin", tag
   end
 end
 

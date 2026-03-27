@@ -34,5 +34,11 @@ jobs:
           bundle config set --local deployment true
           bundle install
 
-      - name: Release
-        uses: rubygems/release-gem@e9a6361a0b14562539327c2a02373edc56dd3169 # v1.1.4
+      - name: Install cosign
+        uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
+
+      - name: Configure RubyGems credentials
+        uses: rubygems/configure-rubygems-credentials@f623036f13ddde19c3dc555bdcc20059c18dc042 # main
+
+      - name: Push release to RubyGems
+        run: bin/rake release:push
