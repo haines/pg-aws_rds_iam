@@ -121,6 +121,9 @@ namespace :release do
 
     abort "Unclean working directory" unless system("git", "diff", "--quiet")
 
+    sh "git", "fetch", "--quiet", "origin", "main"
+    abort "Not on latest main" if `git rev-parse HEAD` != `git rev-parse FETCH_HEAD`
+
     sh "git", "tag", "--message=Version #{version}", "--sign", tag
     sh "git", "push", "origin", tag
   end
