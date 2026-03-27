@@ -6,7 +6,6 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
-    - bin/bundle
     - bin/rake
     - bin/yard
     - vendor/**/*
@@ -17,6 +16,9 @@ Layout/LineLength:
   Enabled: false
 
 Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
   Enabled: false
 
 Metrics/ClassLength:

@@ -1,25 +1,14 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
+
 gemspec
 
-gem "aws-sdk-ec2"
-gem "base64"
-gem "bigdecimal"
-gem "bundler"
-gem "minitest"
-gem "minitest-reporters"
-gem "mutex_m"
-gem "openssl"
-gem "pry"
 gem "rake"
-gem "rexml"
-gem "rubocop"
-gem "rubocop-minitest"
-gem "rubocop-rake"
-gem "sequel"
-gem "simplecov", require: false
-gem "timecop"
+
+group :development do
+  gem "pry"
+end
 
 group :docs do
   gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
@@ -27,12 +16,29 @@ group :docs do
   gem "yard"
 end
 
-def gem_version(gem_name)
-  ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
+group :lint do
+  gem "rubocop"
+  gem "rubocop-minitest"
+  gem "rubocop-rake"
 end
 
-["activerecord", "pg"].each do |gem_name|
-  gem gem_name, *gem_version(gem_name)
-end
+group :test do
+  def gem_version(gem_name)
+    ENV["#{gem_name.upcase}_VERSION"]&.then { |gem_version| "~> #{gem_version}.0" }
+  end
 
-gem "railties", *gem_version("activerecord")
+  gem "activerecord", *gem_version("activerecord")
+  gem "aws-sdk-ec2"
+  gem "base64"
+  gem "bigdecimal"
+  gem "minitest"
+  gem "minitest-reporters"
+  gem "mutex_m"
+  gem "openssl"
+  gem "pg", *gem_version("pg")
+  gem "railties", *gem_version("activerecord")
+  gem "rexml"
+  gem "sequel"
+  gem "simplecov", require: false
+  gem "timecop"
+end

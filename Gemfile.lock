@@ -240,7 +240,6 @@ DEPENDENCIES
   aws-sdk-ec2
   base64
   bigdecimal
-  bundler
   commonmarker (< 1.0)
   minitest
   minitest-reporters
