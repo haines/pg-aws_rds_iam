@@ -133,8 +133,13 @@ After checking out the repo, run `bin/setup` to install dependencies.
 Then, run `bin/rake` to run the tests.
 You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bin/rake install`.
-To release a new version, update the version number in `version.rb`, and then run `bin/rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To release a new version:
+
+1. Update the version number in [version.rb](lib/pg/aws_rds_iam/version.rb), and run `bundle install` to update [Gemfile.lock](Gemfile.lock).
+2. Update [CHANGELOG.md](CHANGELOG.md).
+3. Submit the changes as a pull request.
+4. Once merged, run `bin/rake release:tag` to tag the release and push the tag to GitHub.
+   The gem is published to [rubygems.org](https://rubygems.org/gems/pg-aws_rds_iam) using [trusted publishing](https://guides.rubygems.org/trusted-publishing/) via GitHub Actions.
 
 ## Contributing
 
