@@ -18,6 +18,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BUNDLE_ONLY: default lint
+
     steps:
       - name: Check out source code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -70,8 +73,8 @@ jobs:
       id-token: write
 
     env:
+      BUNDLE_ONLY: default test
       BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
-      BUNDLE_WITHOUT: docs
       ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
       PG_VERSION: ${{ matrix.pg }}
 

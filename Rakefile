@@ -1,31 +1,53 @@
 # frozen_string_literal: true
 
-require "active_record/version"
-require "minitest/test_task"
-require "pg/version"
 require "rake/clean"
-require "rubocop/rake_task"
 
-namespace :test do
-  {
-    acceptance: ["test/acceptance/test.rb"],
-    unit: ["test/**/*_test.rb"]
-  }.each do |name, globs|
-    Minitest::TestTask.create name do |t|
-      t.test_globs = globs
-      t.test_prelude = <<~RUBY
-        ENV["SIMPLECOV_COMMAND_NAME"] = "test:#{name} ruby:#{RUBY_VERSION} pg:#{PG::VERSION} activerecord:#{ActiveRecord.version}"
-        require "simplecov"
-      RUBY
+begin
+  require "active_record/version"
+  require "minitest/test_task"
+  require "pg/version"
+
+  namespace :test do
+    {
+      acceptance: ["test/acceptance/test.rb"],
+      unit: ["test/**/*_test.rb"]
+    }.each do |name, globs|
+      Minitest::TestTask.create name do |t|
+        t.test_globs = globs
+        t.test_prelude = <<~RUBY
+          ENV["SIMPLECOV_COMMAND_NAME"] = "test:#{name} ruby:#{RUBY_VERSION} pg:#{PG::VERSION} activerecord:#{ActiveRecord.version}"
+          require "simplecov"
+        RUBY
+      end
     end
   end
+
+  desc "Run all tests"
+  task :test => ["test:unit", "test:acceptance"]
+
+  namespace :coverage do
+    CLEAN.include "coverage"
+
+    desc "Collate coverage reports"
+    task :collate do
+      require "simplecov"
+      SimpleCov.collate Dir.glob("coverage-*/.resultset.json") do
+        formatter SimpleCov::Formatter::HTMLFormatter
+      end
+    end
+  end
+rescue LoadError
+  # Bundle installed without test group
 end
 
-desc "Run all tests"
-task :test => ["test:unit", "test:acceptance"]
+begin
+  require "rubocop/rake_task"
 
-RuboCop::RakeTask.new do |t|
-  t.formatters = ENV["CI"] ? ["github", "clang"] : ["fuubar"]
+  RuboCop::RakeTask.new do |t|
+    t.formatters = ENV["CI"] ? ["github", "clang"] : ["fuubar"]
+  end
+rescue LoadError
+  # Bundle installed without lint group
 end
 
 begin
@@ -45,18 +67,6 @@ begin
   end
 rescue LoadError
   # Bundle installed without docs group
-end
-
-namespace :coverage do
-  CLEAN.include "coverage"
-
-  desc "Collate coverage reports"
-  task :collate do
-    require "simplecov"
-    SimpleCov.collate Dir.glob("coverage-*/.resultset.json") do
-      formatter SimpleCov::Formatter::HTMLFormatter
-    end
-  end
 end
 
 namespace :release do

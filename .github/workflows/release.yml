@@ -17,6 +17,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BUNDLE_DEPLOYMENT: "true"
+      BUNDLE_ONLY: default
+
     permissions:
       id-token: write
 
@@ -30,9 +34,7 @@ jobs:
         uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
 
       - name: Install gems
-        run: |-
-          bundle config set --local deployment true
-          bundle install
+        run: bundle install
 
       - name: Generate release notes
         run: bin/rake release:notes
