@@ -1,0 +1,28 @@
+name: Set up Ruby
+
+description: Install Ruby and gems
+
+inputs:
+  bundler-cache:
+    description: Run `bundle install` and cache the result?
+    default: "false"
+
+  ruby-version:
+    description: Version of Ruby to install
+    default: "default"
+
+runs:
+  using: composite
+
+  steps:
+    - name: Find RubyGems version
+      id: rubygems
+      run: ruby -r rubygems/bundler_version_finder -e 'puts "version=#{Gem::BundlerVersionFinder.bundler_version}"' >> "${GITHUB_OUTPUT}"
+      shell: bash
+
+    - name: Install Ruby${{ inputs.bundler-cache == 'true' && ' and gems' || '' }}
+      uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+      with:
+        bundler-cache: ${{ inputs.bundler-cache }}
+        ruby-version: ${{ inputs.ruby-version }}
+        rubygems: ${{ steps.rubygems.outputs.version }}

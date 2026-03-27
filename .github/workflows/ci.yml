@@ -28,7 +28,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+        uses: ./.github/actions/setup-ruby
         with:
           bundler-cache: true
 
@@ -50,9 +50,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
-        with:
-          bundler: none
+        uses: ./.github/actions/setup-ruby
 
       - name: Generate version matrix
         id: version-matrix
@@ -85,7 +83,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+        uses: ./.github/actions/setup-ruby
         with:
           ruby-version: ${{ matrix.ruby }}
 
@@ -93,7 +91,7 @@ jobs:
         run: bundle lock --update activerecord pg railties
 
       - name: Install gems
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+        uses: ./.github/actions/setup-ruby
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
@@ -142,7 +140,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+        uses: ./.github/actions/setup-ruby
         with:
           bundler-cache: true
 

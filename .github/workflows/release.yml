@@ -31,7 +31,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ruby/setup-ruby@319994f95fa847cf3fb3cd3dbe89f6dcde9f178f # v1.295.0
+        uses: ./.github/actions/setup-ruby
 
       - name: Install gems
         run: bundle install
