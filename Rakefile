@@ -82,6 +82,36 @@ namespace :release do
     sh "gem", "push", built_gem_path, "--attestation", attestation_path
   end
 
+  desc "Extract release notes from changelog"
+  task :notes do
+    require "pg/aws_rds_iam/version"
+
+    version = PG::AWS_RDS_IAM::VERSION
+
+    mkdir_p "pkg", verbose: false
+
+    lines = File.open "CHANGELOG.md", "r" do |changelog|
+      changelog
+        .each_line
+        .lazy
+        .drop_while { |line| !line.start_with?("## [#{version}] ") }
+        .drop(1)
+        .drop_while { |line| line == "\n" }
+        .take_while { |line| !line.start_with?("## ") }
+        .to_a
+    end
+
+    lines.pop while lines.last == "\n"
+
+    File.open "pkg/release.md", "w" do |release_notes|
+      lines.each do |line|
+        release_notes << line
+      end
+    end
+
+    File.write "pkg/version.txt", version
+  end
+
   desc "Tag release"
   task :tag do
     require "pg/aws_rds_iam/version"
