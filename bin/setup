@@ -2,5 +2,4 @@
 set -o errexit
 set -o nounset
 
-bin/install-bundler
 bundle install
