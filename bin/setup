@@ -3,4 +3,4 @@ set -o errexit
 set -o nounset
 
 bin/install-bundler
-bin/bundle install
+bundle install

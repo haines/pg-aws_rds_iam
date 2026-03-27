@@ -31,8 +31,8 @@ jobs:
 
       - name: Install gems
         run: |-
-          bin/bundle config set --local deployment true
-          bin/bundle install
+          bundle config set --local deployment true
+          bundle install
 
       - name: Release
         uses: rubygems/release-gem@e9a6361a0b14562539327c2a02373edc56dd3169 # v1.1.4

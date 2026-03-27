@@ -6,7 +6,6 @@ AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
   Exclude:
-    - bin/bundle
     - bin/rake
     - bin/yard
     - vendor/**/*
