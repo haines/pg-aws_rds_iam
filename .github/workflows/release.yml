@@ -46,9 +46,11 @@ jobs:
         uses: rubygems/configure-rubygems-credentials@f623036f13ddde19c3dc555bdcc20059c18dc042 # main
 
       - name: Push gem to RubyGems
+        id: gem-push
         run: bin/rake release:push
 
       - name: Upload release artifacts
+        if: always() && (steps.gem-push.outcome == 'success' || steps.gem-push.outcome == 'failure')
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           name: pkg

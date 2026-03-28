@@ -130,6 +130,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BUNDLE_ONLY: default coverage
+
     steps:
       - name: Check test results
         run: test "${{ needs.test.result }}" = "success"

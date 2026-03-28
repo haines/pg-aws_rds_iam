@@ -39,6 +39,9 @@ group :test do
   gem "railties", *gem_version("activerecord")
   gem "rexml"
   gem "sequel"
-  gem "simplecov", require: false
   gem "timecop"
+end
+
+group :test, :coverage do
+  gem "simplecov", require: false
 end
