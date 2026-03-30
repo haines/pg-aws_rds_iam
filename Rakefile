@@ -85,6 +85,12 @@ namespace :release do
   task :sign => :build do
     attestation_path = "#{built_gem_path}.sigstore.json"
     sh "cosign", "sign-blob", built_gem_path, "--bundle", attestation_path
+
+    # https://github.com/rubygems/rubygems.org/issues/6369
+    require "json"
+    bundle = JSON.load_file(attestation_path)
+    bundle.fetch("verificationMaterial").delete "timestampVerificationData"
+    File.write attestation_path, JSON.generate(bundle)
   end
 
   desc "Push gem"
