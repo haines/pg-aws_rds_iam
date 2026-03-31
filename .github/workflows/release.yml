@@ -17,10 +17,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      BUNDLE_DEPLOYMENT: "true"
-      BUNDLE_ONLY: default
-
     permissions:
       id-token: write
 
@@ -32,9 +28,9 @@ jobs:
 
       - name: Install Ruby
         uses: ./.github/actions/setup-ruby
-
-      - name: Install gems
-        run: bundle install
+        with:
+          bundle-install: default
+          bundler-cache: false
 
       - name: Generate release notes
         run: bin/rake release:notes
