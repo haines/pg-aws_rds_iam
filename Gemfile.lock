@@ -46,7 +46,7 @@ GEM
     ansi (1.6.0)
     ast (2.4.3)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1234.0)
+    aws-partitions (1.1236.0)
     aws-sdk-core (3.244.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -55,7 +55,7 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-ec2 (1.610.0)
+    aws-sdk-ec2 (1.611.0)
       aws-sdk-core (~> 3, >= 3.244.0)
       aws-sigv4 (~> 1.5)
     aws-sdk-rds (1.310.0)
@@ -220,7 +220,7 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     webrick (1.9.2)
-    yard (0.9.38)
+    yard (0.9.39)
     zeitwerk (2.7.5)
 
 PLATFORMS
@@ -269,9 +269,9 @@ CHECKSUMS
   ansi (1.6.0) sha256=ac9ea0c0ea8d32fb4e271348e609963ac78882f34b73836c2a02b3622e666658
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   aws-eventstream (1.4.0) sha256=116bf85c436200d1060811e6f5d2d40c88f65448f2125bc77ffce5121e6e183b
-  aws-partitions (1.1234.0) sha256=8f74aa6ca2e945fa50d83a23fc10f5406cb0becd32ac9f8940001ba8b04dcf8a
+  aws-partitions (1.1236.0) sha256=00f58da2f959852c70067e1ea9690072891320bebf480c4415e8bdff2eeb1cdf
   aws-sdk-core (3.244.0) sha256=3e458c078b0c5bdee95bc370c3a483374b3224cf730c1f9f0faf849a5d9a18ea
-  aws-sdk-ec2 (1.610.0) sha256=f73d949135910502bf81408a24e7ed6aaff78f66a05e24a1e9ac6ad0aec4b0f8
+  aws-sdk-ec2 (1.611.0) sha256=e6d713381e4057a46a8144f4aa582bb59dde55426f9675d3dabd3f9c3a1f9bfd
   aws-sdk-rds (1.310.0) sha256=2e30aa790a30a931e89a3c67d3560d221487d57657ee7b22e21f15c2cd40ca12
   aws-sigv4 (1.12.1) sha256=6973ff95cb0fd0dc58ba26e90e9510a2219525d07620c8babeb70ef831826c00
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
@@ -359,7 +359,7 @@ CHECKSUMS
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
   webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
-  yard (0.9.38) sha256=721fb82afb10532aa49860655f6cc2eaa7130889df291b052e1e6b268283010f
+  yard (0.9.39) sha256=0bbbcd87ffd132824c3f89bbd39deef1ffb3877259090849bd49e48daeaf7b56
   zeitwerk (2.7.5) sha256=d8da92128c09ea6ec62c949011b00ed4a20242b255293dd66bf41545398f73dd
 
 BUNDLED WITH
