@@ -1,5 +1,5 @@
 --markup markdown
---markup-provider commonmarker
+--markup-provider redcarpet
 --no-private
 -
 *.md

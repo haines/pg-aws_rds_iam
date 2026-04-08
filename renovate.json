@@ -13,12 +13,6 @@
     {
       "matchPackageNames": ["*"],
       "groupName": "dependencies"
-    },
-    {
-      "matchPackageNames": ["commonmarker"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false,
-      "description": "https://github.com/lsegal/yard/issues/1528"
     }
   ],
   "reviewers": ["haines"],
