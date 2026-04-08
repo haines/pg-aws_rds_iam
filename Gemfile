@@ -11,7 +11,7 @@ group :development do
 end
 
 group :docs do
-  gem "commonmarker", "< 1.0" # https://github.com/lsegal/yard/issues/1528
+  gem "redcarpet"
   gem "webrick"
   gem "yard"
 end
