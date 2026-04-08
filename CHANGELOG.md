@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 
 ### Changed
-* Require Ruby ≥ 3.3 ([#813](https://github.com/haines/pg-aws_rds_iam/pull/813))
+* Require Ruby ≥ 3.3 and Active Record ≥ 7.2 ([#813](https://github.com/haines/pg-aws_rds_iam/pull/813))
 
 ## [0.8.0] - 2026-03-27
 
