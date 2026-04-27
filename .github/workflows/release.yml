@@ -39,7 +39,7 @@ jobs:
         uses: sigstore/cosign-installer@cad07c2e89fa2edd6e2d7bab4c1aa38e53f76003 # v4.1.1
 
       - name: Configure RubyGems credentials
-        uses: rubygems/configure-rubygems-credentials@6f94374a7eb4cdf600b093bbcd94079187872fac # main
+        uses: rubygems/configure-rubygems-credentials@cb088735f97e735ff769f8f7c24158151cc9ca6b # main
 
       - name: Push gem to RubyGems
         id: gem-push
