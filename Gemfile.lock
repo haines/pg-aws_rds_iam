@@ -73,12 +73,12 @@ GEM
     date (3.5.1)
     docile (1.4.1)
     drb (2.2.3)
-    erb (6.0.3)
+    erb (6.0.4)
     erubi (1.13.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     io-console (0.8.2)
-    irb (1.17.0)
+    irb (1.18.0)
       pp (>= 0.6.0)
       prism (>= 1.3.0)
       rdoc (>= 4.0.0)
@@ -118,7 +118,7 @@ GEM
     nokogiri (1.19.2-x86_64-linux-musl)
       racc (~> 1.4)
     openssl (4.0.1)
-    parallel (2.0.1)
+    parallel (2.1.0)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
@@ -284,11 +284,11 @@ CHECKSUMS
   date (3.5.1) sha256=750d06384d7b9c15d562c76291407d89e368dda4d4fff957eb94962d325a0dc0
   docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
-  erb (6.0.3) sha256=e43685a8a0a0ea6a924871b2162e8953ef73147ce46b75b36d1f6774fd286e91
+  erb (6.0.4) sha256=38e3803694be357fe2bfe312487c74beaf9fb4e5beb3e22498952fe1645b95d9
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
   i18n (1.14.8) sha256=285778639134865c5e0f6269e0b818256017e8cde89993fdfcbfb64d088824a5
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
-  irb (1.17.0) sha256=168c4ddb93d8a361a045c41d92b2952c7a118fa73f23fe14e55609eb7a863aae
+  irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   jmespath (1.6.2) sha256=238d774a58723d6c090494c8879b5e9918c19485f7e840f2c1c7532cf84ebcb1
   json (2.19.4) sha256=670a7d333fb3b18ca5b29cb255eb7bef099e40d88c02c80bd42a3f30fe5239ac
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
@@ -308,7 +308,7 @@ CHECKSUMS
   nokogiri (1.19.2-x86_64-linux-gnu) sha256=fa8feca882b73e871a9845f3817a72e9734c8e974bdc4fbad6e4bc6e8076b94f
   nokogiri (1.19.2-x86_64-linux-musl) sha256=93128448e61a9383a30baef041bf1f5817e22f297a1d400521e90294445069a8
   openssl (4.0.1) sha256=e27974136b7b02894a1bce46c5397ee889afafe704a839446b54dc81cb9c5f7d
-  parallel (2.0.1) sha256=337782d3e39f4121e67563bf91dd8ece67f48923d90698614773a0ec9a5b2c7d
+  parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
   pg (1.6.3-aarch64-linux) sha256=0698ad563e02383c27510b76bf7d4cd2de19cd1d16a5013f375dd473e4be72ea
