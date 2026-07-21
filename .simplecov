@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-SimpleCov.start do
+SimpleCov.configure do
   command_name ENV.fetch("SIMPLECOV_COMMAND_NAME", nil)
   enable_coverage :branch
   formatter SimpleCov::Formatter::SimpleFormatter
