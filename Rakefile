@@ -17,6 +17,7 @@ begin
         t.test_prelude = <<~RUBY
           ENV["SIMPLECOV_COMMAND_NAME"] = "test:#{name} ruby:#{RUBY_VERSION} pg:#{PG::VERSION} activerecord:#{ActiveRecord.version}"
           require "simplecov"
+          SimpleCov.start
         RUBY
       end
     end

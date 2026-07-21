@@ -61,7 +61,7 @@ class AcceptanceTest < Minitest::Test
 
   def test_rails_dbconsole
     args = [File.expand_path("rails/dbconsole.rb", __dir__)]
-    args.unshift("-r", File.expand_path("rails/simplecov.rb", __dir__)) if defined?(SimpleCov) && SimpleCov.running
+    args.unshift("-r", File.expand_path("rails/simplecov.rb", __dir__)) if defined?(Coverage) && Coverage.running?
 
     stdout, stderr, status = Open3.capture3(
       {
