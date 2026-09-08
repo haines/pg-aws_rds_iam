@@ -46,7 +46,7 @@ GEM
     ansi (1.6.0)
     ast (2.4.3)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1281.0)
+    aws-partitions (1.1283.0)
     aws-sdk-core (3.254.1)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -55,7 +55,7 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-ec2 (1.638.0)
+    aws-sdk-ec2 (1.642.0)
       aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
     aws-sdk-rds (1.320.0)
@@ -199,7 +199,7 @@ GEM
       rubocop (>= 1.72.1)
     ruby-progressbar (1.13.0)
     securerandom (0.4.1)
-    sequel (5.107.0)
+    sequel (5.108.0)
       bigdecimal
     simplecov (1.1.1)
     thor (1.5.0)
@@ -263,9 +263,9 @@ CHECKSUMS
   ansi (1.6.0) sha256=ac9ea0c0ea8d32fb4e271348e609963ac78882f34b73836c2a02b3622e666658
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
   aws-eventstream (1.4.0) sha256=116bf85c436200d1060811e6f5d2d40c88f65448f2125bc77ffce5121e6e183b
-  aws-partitions (1.1281.0) sha256=97fcc7d6a068ab790a1efcd8c6587c08fb108b4bed7ff1409cb47e0d642782ec
+  aws-partitions (1.1283.0) sha256=125ba9cb65eb7ec2b0a2041a47d204d403b3f6d9aa62bffa53a6b95b04b1f1de
   aws-sdk-core (3.254.1) sha256=518089e32134c3478cd4ec63d07fb966546a45e9e4cbf5f80d2cf16d5699d29b
-  aws-sdk-ec2 (1.638.0) sha256=ea98ff935f7ea8e173910aa79d3f3442ec46bbbcbbda99681b96f493ca1d6800
+  aws-sdk-ec2 (1.642.0) sha256=b26ba8ef4cbb9a978610433b7da0b935889f8d1a1c4a13bc4d0dc46db55f5aee
   aws-sdk-rds (1.320.0) sha256=3003f95840f9ef902d8d5eb3a9bfe61fc385b1bbc82aef151dc95753cf8cf987
   aws-sigv4 (1.12.1) sha256=6973ff95cb0fd0dc58ba26e90e9510a2219525d07620c8babeb70ef831826c00
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
@@ -337,7 +337,7 @@ CHECKSUMS
   rubocop-rake (0.7.1) sha256=3797f2b6810c3e9df7376c26d5f44f3475eda59eb1adc38e6f62ecf027cbae4d
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
-  sequel (5.107.0) sha256=019629313205295b007f6df2c5eab19ddc40710d549fd445ac300f2853a370db
+  sequel (5.108.0) sha256=ae5996d1196775427916a2fa36e02f99762ead9affb8ea9b1aec2c0b16bdb3a3
   simplecov (1.1.1) sha256=25825ef13f0b2e74694d769817dad6ab8e90131dabdaa666e522fea105521e78
   thor (1.5.0) sha256=e3a9e55fe857e44859ce104a84675ab6e8cd59c650a49106a05f55f136425e73
   timecop (0.9.11) sha256=41284dc6e5041f2184f781ace766f942108c842f8d8c1386a26e6343decc7542
