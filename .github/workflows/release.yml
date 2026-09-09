@@ -27,7 +27,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
         with:
           bundle-install: default
           bundler-cache: false

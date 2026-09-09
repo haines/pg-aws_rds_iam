@@ -25,7 +25,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby and gems
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
         with:
           bundle-install: default lint
 
@@ -47,7 +47,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
 
       - name: Generate version matrix
         id: version-matrix
@@ -78,7 +78,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
         with:
           ruby-version: ${{ matrix.ruby }}
 
@@ -86,7 +86,7 @@ jobs:
         run: bundle lock --update activerecord pg railties
 
       - name: Install gems
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
         with:
           ruby-version: ${{ matrix.ruby }}
           bundle-install: default test
@@ -135,7 +135,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Ruby and gems
-        uses: ./.github/actions/setup-ruby
+        uses: $/.github/actions/setup-ruby
         with:
           bundle-install: default coverage
 
