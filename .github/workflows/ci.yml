@@ -57,6 +57,7 @@ jobs:
     needs: version-matrix
 
     strategy:
+      fail-fast: false
       matrix: ${{ fromJSON(needs.version-matrix.outputs.matrix) }}
       max-parallel: 8
 
