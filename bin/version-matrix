@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require "bundler"
 require "json"
 
 def minor_versions(name, requirement)
+  cutoff = Time.now - (Bundler.definition.sources.global_rubygems_source.remote_cooldowns.values.max * 24 * 60 * 60)
+  puts cutoff
   tuples, _errors = Gem::SpecFetcher.fetcher.search_for_dependency(Gem::Dependency.new(name, requirement))
-  tuples.map { |tuple, _source| tuple.version.segments.first(2).join(".") }.uniq
+  tuples.filter_map { |tuple, source| tuple.version.segments.first(2).join(".") if source.created_at_for_tuple(tuple) <= cutoff }.uniq
 end
 
 gemspec = Gem::Specification.load(File.expand_path("../pg-aws_rds_iam.gemspec", __dir__))
