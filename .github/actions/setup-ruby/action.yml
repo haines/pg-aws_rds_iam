@@ -19,11 +19,6 @@ runs:
   using: composite
 
   steps:
-    - name: Find RubyGems version
-      id: rubygems
-      run: ruby -r rubygems/bundler_version_finder -e 'puts "version=#{Gem::BundlerVersionFinder.bundler_version}"' >> "${GITHUB_OUTPUT}"
-      shell: bash
-
     - name: Set environment variables
       run: |-
         cat <<EOF >> "${GITHUB_ENV}"
@@ -37,11 +32,14 @@ runs:
         BUNDLE_PATH: ${{ github.workspace }}/vendor/bundle
 
     - name: Install Ruby${{ inputs.bundle-install != 'none' && inputs.bundler-cache == 'true' && ' and gems' || '' }}
-      uses: ruby/setup-ruby@a0102e0972be65f351c307e2d64b9314a57c8073 # v1.324.0
+      uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
       with:
         bundler-cache: ${{ inputs.bundle-install != 'none' && inputs.bundler-cache == 'true' }}
         ruby-version: ${{ inputs.ruby-version }}
-        rubygems: ${{ steps.rubygems.outputs.version }}
+
+    - name: Update RubyGems
+      run: ruby -r rubygems/bundler_version_finder -e 'exec "gem", "update", "--system", Gem::BundlerVersionFinder.bundler_version.to_s'
+      shell: bash
 
     - name: Install gems
       if: inputs.bundle-install != 'none' && inputs.bundler-cache != 'true'
